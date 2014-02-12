@@ -19,35 +19,19 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
 
   QMainWindow(parent),
-  ui(new Ui::MainWindow),  Expiry(0.2), Spot(55), Vol(0.2), Strike(50), r(0.09), NumberOfPaths(10),
-  lambda(3), TypeOption(0), m(0.00001), vega2(0.00004), secondes(1), StopMCType(0), prec(200)
-{ 
-
+  ui(new Ui::MainWindow),  prec(200), Spot(0), Strike(0), Expiry(0), Vol(0), r(0), lambda(0), m(0), vega2(0), StopMCType(10), NumberOfPaths(0), secondes(0), PO(0)
+  {
   ui->setupUi(this);
-  /*
-  SetupPlotSimuB();
-  SetupPlotSimuL();
-  SetupPlotPayOffB();
-  SetupPlotPayOffL();
-  SetupPrices();
-*/
-
   QWidget::setUpdatesEnabled(true);
-  // On initialise les axes des graphes à partir des données rentrées par l'utilisateur //
+  ui->statusBar->setWindowTitle("Pricer ++");
 
-
-
-ui->statusBar->setWindowTitle("Pricer ++");
-
-
+// Connextion des boutons //
+connect(ui->OK, SIGNAL(clicked()), this, SLOT(update2()));
+connect(ui->Greeks, SIGNAL(clicked()), this, SLOT(update3()));
 
 connect(ui->PB, SIGNAL(clicked()), this, SLOT(AddSimuB()));
 connect(ui->PL, SIGNAL(clicked()), this, SLOT(AddSimuL()));
 
-
-connect(ui->eVol, SIGNAL(returnPressed()), this, SLOT(edVol()));
-connect(ui->OK, SIGNAL(clicked()), this, SLOT(update2()));
-connect(ui->Greeks, SIGNAL(clicked()), this, SLOT(update3()));
 
 }
 
@@ -127,36 +111,31 @@ int  MainWindow::edt()
 
 void  MainWindow::update2()
 {
-    // INITIALISATION DES VALEURS //
-
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-
+    Spot=edSpot();
+    Strike=edStrike();
+    Expiry=edExpiry();
+    Vol=edVol();
+    r=edr();
+    lambda=edlambda();
+    m=edm();
+    vega2=edvega2();
+    if (edMCStop()==false)
+        StopMCType=1;
+    int TypeOption(0);
+    if (edPOC()==true)
+        TypeOption=1;
+    NumberOfPaths=edNumberOfPaths();
+    secondes=edt();
+    PayOff* PO;
+    if (TypeOption==1)
     {
+    PO = new PayOffCall(Strike);
+    }
+    else
+    {
+    PO = new PayOffPut(Strike);
+    };
+
     ui->Plot_PayOffB->clearGraphs();
     ui->Plot_PayOffL->clearGraphs();
     ui->Plot_SimuB->clearGraphs();
@@ -178,42 +157,13 @@ void  MainWindow::update2()
     SetupPlotPayOffB();
     SetupPlotPayOffL();
     SetupPrices();
-            }
+
 }
+
 
 void  MainWindow::update3()
 {
-    // INITIALISATION DES VALEURS //
-
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-   {
-        Greeksc();
-            }
+Greeksc();
 }
 
 
@@ -223,61 +173,22 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-
-
-
 ////////////////////////////////// GRAPHE 1 : GRAPHE SIMU BROWNIEN //////////////////////////////////////
 
 void MainWindow::SetupPlotSimuB()
 {
-    // INITIALISATION DES VALEURS //
 
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
+// Création de l'objet brownien
 
-        PayOff* PO;
-           if (TypeOption==1)
-           {
-               PO = new PayOffCall(Strike);
-           }
-           else
-           {
-               PO = new PayOffPut(Strike);
-           };
+OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
 
-    OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
 // Setup des caractéristiques du graphe //
 
-
-   ui->Plot_SimuB->xAxis->setRange(0, Expiry, Qt::AlignLeft);
-   ui->Plot_SimuB->yAxis->setRange(Spot, 5*Vol*Spot*sqrt(Expiry), Qt::AlignCenter);
-   ui->Plot_SimuB->xAxis->setLabel("Temps (en années)");
-   ui->Plot_SimuB->yAxis->setLabel("Cours");
-   ui->Plot_SimuB->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
+  ui->Plot_SimuB->xAxis->setRange(0, Expiry, Qt::AlignLeft);
+  ui->Plot_SimuB->yAxis->setRange(Spot, 5*Vol*Spot*sqrt(Expiry), Qt::AlignCenter);
+  ui->Plot_SimuB->xAxis->setLabel("Temps (en années)");
+  ui->Plot_SimuB->yAxis->setLabel("Cours");
+  ui->Plot_SimuB->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                                    QCP::iSelectLegend | QCP::iSelectPlottables);
   ui->Plot_SimuB->addGraph();
   ui->Plot_SimuB->graph()->setPen(QPen(Qt::blue));
@@ -303,46 +214,8 @@ void MainWindow::SetupPlotSimuB()
 
 void MainWindow::SetupPlotSimuL()
 {
-    // INITIALISATION DES VALEURS //
-
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-        PayOff* PO;
-           if (TypeOption==1)
-           {
-               PO = new PayOffCall(Strike);
-           }
-           else
-           {
-               PO = new PayOffPut(Strike);
-           };
 
 // Setup des caractéristiques du graphe //
-
  ui->Plot_SimuL->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                                  QCP::iSelectLegend | QCP::iSelectPlottables);
  ui->Plot_SimuL->xAxis->setRange(0, Expiry, Qt::AlignLeft);
@@ -373,72 +246,46 @@ void MainWindow::SetupPlotSimuL()
 
 void MainWindow::SetupPlotPayOffB()
 {
-    // INITIALISATION DES VALEURS //
 
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-
-        PayOff* PO;
-           if (TypeOption==1)
-           {
+PayOff* PO;
+if (TypeOption==1)
+{
                PO = new PayOffCall(Strike);
-           }
-           else
-           {
-               PO = new PayOffPut(Strike);
-           };
+}
+else
+{
+PO = new PayOffPut(Strike);
+};
 
-    OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
+// Objet brownien
 
-
+OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
 
 // Setup des caractéristiques du graphe //
-       ui->Plot_PayOffB->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
+
+ui->Plot_PayOffB->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                                        QCP::iSelectLegend | QCP::iSelectPlottables);
-      ui->Plot_PayOffB->legend->setVisible(true);
-       ui->Plot_PayOffB->addGraph();
-   ui->Plot_PayOffB->graph()->setPen(QPen(Qt::blue));
-   ui->Plot_PayOffB->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
-   ui->Plot_PayOffB->addGraph();
-   QFont legendFont = font();
-   legendFont.setPointSize(10);
-   ui->Plot_PayOffB->legend->setFont(legendFont);
-   ui->Plot_PayOffB->legend->setSelectedFont(legendFont);
-   ui->Plot_PayOffB->legend->setSelectableParts(QCPLegend::spItems);
-   ui->Plot_PayOffB->xAxis->setRange(0, 2*Strike, Qt::AlignLeft);
-   ui->Plot_PayOffB->yAxis->setRange(0, Spot, Qt::AlignLeft);
-   ui->Plot_PayOffB->xAxis->setLabel("Spot Price");
-   ui->Plot_PayOffB->yAxis->setLabel("Prix de l'option");
-   QPen graphPen;
-   graphPen.setColor(QColor(51, 204, 0));
-   graphPen.setWidthF(2);
-   ui->Plot_PayOffB->graph()->setPen(graphPen);
+ui->Plot_PayOffB->legend->setVisible(true);
+ui->Plot_PayOffB->addGraph();
+ui->Plot_PayOffB->graph()->setPen(QPen(Qt::blue));
+ui->Plot_PayOffB->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
+ui->Plot_PayOffB->addGraph();
+QFont legendFont = font();
+legendFont.setPointSize(10);
+ui->Plot_PayOffB->legend->setFont(legendFont);
+ui->Plot_PayOffB->legend->setSelectedFont(legendFont);
+ui->Plot_PayOffB->legend->setSelectableParts(QCPLegend::spItems);
+ui->Plot_PayOffB->xAxis->setRange(0, 2*Strike, Qt::AlignLeft);
+ui->Plot_PayOffB->yAxis->setRange(0, Spot, Qt::AlignLeft);
+ui->Plot_PayOffB->xAxis->setLabel("Spot Price");
+ui->Plot_PayOffB->yAxis->setLabel("Prix de l'option");
+QPen graphPen;
+graphPen.setColor(QColor(51, 204, 0));
+graphPen.setWidthF(2);
+ui->Plot_PayOffB->graph()->setPen(graphPen);
 
 // Vecteurs du graphe //
+
    StatGatherer GraphePO(pSimuB, prec, 2*Strike);
    QVector<double> x=GraphePO.Axis();
    QVector<double> y=GraphePO.GPO();
@@ -460,129 +307,77 @@ void MainWindow::SetupPlotPayOffB()
 
 void MainWindow::SetupPlotPayOffL()
 {
-    // INITIALISATION DES VALEURS //
 
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-        PayOff* PO;
-               if (TypeOption==1)
-               {
-                   PO = new PayOffCall(Strike);
-               }
-               else
-               {
-                   PO = new PayOffPut(Strike);
-               };
-
-    OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
+PayOff* PO;
+if (TypeOption==1)
+{
+PO = new PayOffCall(Strike);
+}
+else
+{
+PO = new PayOffPut(Strike);
+};
 
 
+    // Objet de Levy
+
+OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
 
     // Setup des caractéristiques du graphe //
 
-           ui->Plot_PayOffL->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
+ui->Plot_PayOffL->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                                            QCP::iSelectLegend | QCP::iSelectPlottables);
-
-           ui->Plot_PayOffL->legend->setVisible(true);
-           QFont legendFont = font();
-           legendFont.setPointSize(10);
-           ui->Plot_PayOffL->legend->setFont(legendFont);
-           ui->Plot_PayOffL->legend->setSelectedFont(legendFont);
-           ui->Plot_PayOffL->legend->setSelectableParts(QCPLegend::spItems);
-           ui->Plot_PayOffL->xAxis->setRange(0, 2*Strike, Qt::AlignLeft);
-           ui->Plot_PayOffL->yAxis->setRange(0, Spot, Qt::AlignLeft);
-           ui->Plot_PayOffL->xAxis->setLabel("Spot Price");
-           ui->Plot_PayOffL->yAxis->setLabel("Prix de l'option");
-           ui->Plot_PayOffL->addGraph();
-       ui->Plot_PayOffL->graph()->setPen(QPen(Qt::red));
-       ui->Plot_PayOffL->graph()->setBrush(QBrush(QColor(120, 120, 20, 20)));
-       ui->Plot_PayOffL->addGraph();
-       QPen graphPen;
-       graphPen.setColor(QColor(51, 204, 0));
-       graphPen.setWidthF(2);
-       ui->Plot_PayOffL->graph()->setPen(graphPen);
+ui->Plot_PayOffL->legend->setVisible(true);
+QFont legendFont = font();
+legendFont.setPointSize(10);
+ui->Plot_PayOffL->legend->setFont(legendFont);
+ui->Plot_PayOffL->legend->setSelectedFont(legendFont);
+ui->Plot_PayOffL->legend->setSelectableParts(QCPLegend::spItems);
+ui->Plot_PayOffL->xAxis->setRange(0, 2*Strike, Qt::AlignLeft);
+ui->Plot_PayOffL->yAxis->setRange(0, Spot, Qt::AlignLeft);
+ui->Plot_PayOffL->xAxis->setLabel("Spot Price");
+ui->Plot_PayOffL->yAxis->setLabel("Prix de l'option");
+ui->Plot_PayOffL->addGraph();
+ui->Plot_PayOffL->graph()->setPen(QPen(Qt::red));
+ui->Plot_PayOffL->graph()->setBrush(QBrush(QColor(120, 120, 20, 20)));
+ui->Plot_PayOffL->addGraph();
+QPen graphPen;
+graphPen.setColor(QColor(51, 204, 0));
+graphPen.setWidthF(2);
+ui->Plot_PayOffL->graph()->setPen(graphPen);
 
     // Vecteurs du graphe //
+
 StatGatherer GraphePO(pSimuL, prec, 2*Strike);
-       QVector<double> x=GraphePO.Axis();
-       QVector<double> y=GraphePO.GPO();
-       QVector<double> z=GraphePO.GPOT();//gPayOT(pSimuL,*PO, prec, Strike);
+QVector<double> x=GraphePO.Axis();
+QVector<double> y=GraphePO.GPO();
+QVector<double> z=GraphePO.GPOT();//gPayOT(pSimuL,*PO, prec, Strike);
 
     // Graphes //
 
-       ui->Plot_PayOffL->graph(0)->setData(x, y);
-       ui->Plot_PayOffL->graph(0)->setName("Prix aujourd'hui");
-       ui->Plot_PayOffL->graph(1)->setData(x, z);
-       ui->Plot_PayOffL->graph(1)->setName("Prix à la maturité");
-       ui->Plot_PayOffL->axisRect()->setupFullAxesBox(true);
-       ui->Plot_PayOffL->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-       ui->Plot_PayOffL->replot();
+ui->Plot_PayOffL->graph(0)->setData(x, y);
+ui->Plot_PayOffL->graph(0)->setName("Prix aujourd'hui");
+ui->Plot_PayOffL->graph(1)->setData(x, z);
+ui->Plot_PayOffL->graph(1)->setName("Prix à la maturité");
+ui->Plot_PayOffL->axisRect()->setupFullAxesBox(true);
+ui->Plot_PayOffL->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+ui->Plot_PayOffL->replot();
+
 }
 
 void MainWindow::SetupPrices()
 {
-    // INITIALISATION DES VALEURS //
+   // INITIALISATION DES VALEURS //
 
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-
-        PayOff* PO;
-           if (TypeOption==1)
-           {
-               PO = new PayOffCall(Strike);
-           }
-           else
-           {
-               PO = new PayOffPut(Strike);
-           };
+PayOff* PO;
+if (TypeOption==1)
+{
+PO = new PayOffCall(Strike);
+}
+else
+{
+PO = new PayOffPut(Strike);
+};
 
 if (StopMCType==1)
     NumberOfPaths=1000000;
@@ -689,7 +484,7 @@ ui->Plot_ConvL->replot();
 
 
 double VarEmpBS(0);
-for (int i(0);i<NumberOfPaths-1;++i)
+for (unsigned long i(0);i<NumberOfPaths-1;++i)
 {
     VarEmpBS+=(PrixBV[i]-PrixB)*(PrixBV[i]-PrixB);
 }
@@ -698,7 +493,7 @@ ui->VarEmpB->setNum(sqrt(VarEmpB));
 
 
 double VarEmpLS(0);
-for (int i(0);i<NumberOfPaths-1;++i)
+for (unsigned long i(0);i<NumberOfPaths-1;++i)
 {
     VarEmpLS+=(PrixLV[i]-PrixL)*(PrixLV[i]-PrixL);
 }
@@ -711,44 +506,15 @@ ui->VarEmpL->setNum(sqrt(VarEmpL));
 void MainWindow :: Greeksc()
 
 {
-    // INITIALISATION DES VALEURS //
-
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-
-        PayOff* PO;
-           if (TypeOption==1)
-           {
-               PO = new PayOffCall(Strike);
-           }
-           else
-           {
-               PO = new PayOffPut(Strike);
-           };
+    PayOff* PO;
+    if (TypeOption==1)
+    {
+    PO = new PayOffCall(Strike);
+    }
+    else
+    {
+    PO = new PayOffPut(Strike);
+    };
 
 OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
 OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
@@ -790,117 +556,40 @@ ui->RhoL->setNum(RhoL);
 
 void MainWindow::AddSimuB()
 {
-    // INITIALISATION DES VALEURS //
 
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-        PayOff* PO;
-           if (TypeOption==1)
-           {
-               PO = new PayOffCall(Strike);
-           }
-           else
-           {
-               PO = new PayOffPut(Strike);
-           };
+OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
 
-    OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
+StatGatherer SimuB(pSimuB,prec,Expiry);
+QVector<double> x=SimuB.Axis();
+QVector<double> y=SimuB.SimuCoursB();
 
 
-    StatGatherer SimuB(pSimuB,prec,Expiry);
-    QVector<double> x=SimuB.Axis();
-    QVector<double> y=SimuB.SimuCoursB();
+// Setup des caractéristiques du graphe //
 
+ui->Plot_SimuB->addGraph();
+ui->Plot_SimuB->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
 
-      // Setup des caractéristiques du graphe //
-
-      ui->Plot_SimuB->addGraph();
-      ui->Plot_SimuB->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
-
-      ui->Plot_SimuB->graph()->setData(x, y);
-      QPen graphPen;
-      graphPen.setColor(QColor(rand()%245+10, rand()%245+10, rand()%245+10));
-      ui->Plot_SimuB->graph()->setPen(graphPen);
-      ui->Plot_SimuB->replot();
+ui->Plot_SimuB->graph()->setData(x, y);
+QPen graphPen;
+graphPen.setColor(QColor(rand()%245+10, rand()%245+10, rand()%245+10));
+ui->Plot_SimuB->graph()->setPen(graphPen);
+ui->Plot_SimuB->replot();
 }
 
 
 void MainWindow::AddSimuL()
 {
-    // INITIALISATION DES VALEURS //
 
-        double Spot(0);
-        Spot=edSpot();
-        double Strike(0);
-        Strike=edStrike();
-        double Expiry(0);
-        Expiry=edExpiry();
-        double Vol(0);
-        Vol=edVol();
-        double r(0);
-        r=edr();
-        double lambda(0);
-        lambda=edlambda();
-        double m(0);
-        m=edm();
-        double vega2(0);
-        vega2=edvega2();
-        int StopMCType(0);
-        if (edMCStop()==false)
-            StopMCType=1;
-        int TypeOption(0);
-        if (edPOC()==true)
-            TypeOption=1;
-        unsigned long NumberOfPaths(0);
-        NumberOfPaths=edNumberOfPaths();
-        int secondes(0);
-        secondes=edt();
-        PayOff* PO;
-               if (TypeOption==1)
-               {
-                   PO = new PayOffCall(Strike);
-               }
-               else
-               {
-                   PO = new PayOffPut(Strike);
-               };
+OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
+StatGatherer SimuL(pSimuL,prec,Expiry);
+QVector<double> x=SimuL.Axis();
+QVector<double> y=SimuL.SimuCoursB();
 
-    // Objet Levy //
-    // Vecteurs du graphe //
-               OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
-               StatGatherer SimuL(pSimuL,prec,Expiry);
-               QVector<double> x=SimuL.Axis();
-               QVector<double> y=SimuL.SimuCoursB();
-
-      ui->Plot_SimuL->addGraph();
-      ui->Plot_SimuL->graph()->setBrush(QBrush(QColor(225, 102, 102, 40)));
-      ui->Plot_SimuL->graph()->setData(x, y);
-      QPen graphPen;
-      graphPen.setColor(QColor(rand()%245+10, rand()%245+10, rand()%245+10));
-      ui->Plot_SimuL->graph()->setPen(graphPen);
-      ui->Plot_SimuL->replot();
+ui->Plot_SimuL->addGraph();
+ui->Plot_SimuL->graph()->setBrush(QBrush(QColor(225, 102, 102, 40)));
+ui->Plot_SimuL->graph()->setData(x, y);
+QPen graphPen;
+graphPen.setColor(QColor(rand()%245+10, rand()%245+10, rand()%245+10));
+ui->Plot_SimuL->graph()->setPen(graphPen);
+ui->Plot_SimuL->replot();
 }

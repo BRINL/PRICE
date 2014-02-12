@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QtGui>
+#include <QVector>
 #include "qcustomplot.h"
+#include "PayOff.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,8 +24,8 @@ public:
   void SetupPlotPayOffB();
   void SetupPlotPayOffL();
   void SetupPrices();
-  void graphClicked(QCPAbstractPlottable *plottable);
   void Greeksc();
+
 public slots:
   void AddSimuL();
   void AddSimuB();
@@ -39,28 +41,27 @@ public slots:
   bool edPOC();
   unsigned long  edNumberOfPaths();
   int edt();
-
   void update2();
   void update3();
 
-
-
 private:
   Ui::MainWindow *ui;
-  double Expiry;
+  int prec;
+
+protected :
   double Spot;
-  double Vol;
   double Strike;
+  double Expiry;
+  double Vol;
   double r;
-  unsigned long NumberOfPaths;
   double lambda;
-  int TypeOption;
   double m;
   double vega2;
-  int secondes;
+  int TypeOption;
   int StopMCType;
-  int prec;
-  int i;
+  unsigned long NumberOfPaths;
+  int secondes;
+  PayOff* PO;
 };
 
 #endif // MAINWINDOW_H
