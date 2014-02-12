@@ -22,6 +22,7 @@ QVector <double> MC::PrixA(unsigned long NumberOfPaths, Option& Simu)
  }
 
 
+
 double MC::PrixT(int secondes, Option& Simu)
 {
     time_t tbegin,tend;
