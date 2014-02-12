@@ -53,7 +53,8 @@ SOURCES       = ../PRICER/main.cpp \
 		../PRICER/Option.cpp \
 		../PRICER/StatGatherer.cpp \
 		../PRICER/Greeks.cpp \
-		../PRICER/qcustomplot.cpp moc_Mainwindow.cpp \
+		../PRICER/qcustomplot.cpp qrc_RESSOURCE.cpp \
+		moc_Mainwindow.cpp \
 		moc_qcustomplot.cpp
 OBJECTS       = main.o \
 		PayOff.o \
@@ -64,6 +65,7 @@ OBJECTS       = main.o \
 		StatGatherer.o \
 		Greeks.o \
 		qcustomplot.o \
+		qrc_RESSOURCE.o \
 		moc_Mainwindow.o \
 		moc_qcustomplot.o
 DIST          = ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/spec_pre.prf \
@@ -177,6 +179,7 @@ DIST          = ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/lex.prf \
 		../PRICER/Pricer++.pro \
+		../PRICER/RESSOURCE.qrc \
 		../PRICER/Pricer++.pro
 QMAKE_TARGET  = PRICER++
 DESTDIR       = #avoid trailing-slash linebreak
@@ -333,6 +336,7 @@ Makefile: ../PRICER/Pricer++.pro ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-cl
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/lex.prf \
 		../PRICER/Pricer++.pro \
+		../PRICER/RESSOURCE.qrc \
 		/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/QtPrintSupport.prl \
 		/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/QtGui.prl \
@@ -449,6 +453,7 @@ Makefile: ../PRICER/Pricer++.pro ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-cl
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/yacc.prf:
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/lex.prf:
 ../PRICER/Pricer++.pro:
+../PRICER/RESSOURCE.qrc:
 /Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/QtPrintSupport.prl:
 /Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 /Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/QtGui.prl:
@@ -472,7 +477,7 @@ PRICER++.app/Contents/Info.plist:
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.PRICER++,g" -e "s,@EXECUTABLE@,PRICER++,g" -e "s,@TYPEINFO@,????,g" ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang/Info.plist.app >PRICER++.app/Contents/Info.plist
 dist: 
 	@test -d .tmp/PRICER++1.0.0 || mkdir -p .tmp/PRICER++1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/Genealeatoire.h ../PRICER/Mainwindow.h ../PRICER/MC.h ../PRICER/PayOff.h ../PRICER/Option.h ../PRICER/StatGatherer.h ../PRICER/Greeks.h ../PRICER/qcustomplot.h .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/main.cpp ../PRICER/PayOff.cpp ../PRICER/Genealeatoire.cpp ../PRICER/Mainwindow.cpp ../PRICER/MC.cpp ../PRICER/Option.cpp ../PRICER/StatGatherer.cpp ../PRICER/Greeks.cpp ../PRICER/qcustomplot.cpp .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/mainwindow.ui .tmp/PRICER++1.0.0/ && (cd `dirname .tmp/PRICER++1.0.0` && $(TAR) PRICER++1.0.0.tar PRICER++1.0.0 && $(COMPRESS) PRICER++1.0.0.tar) && $(MOVE) `dirname .tmp/PRICER++1.0.0`/PRICER++1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/PRICER++1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/RESSOURCE.qrc .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/Genealeatoire.h ../PRICER/Mainwindow.h ../PRICER/MC.h ../PRICER/PayOff.h ../PRICER/Option.h ../PRICER/StatGatherer.h ../PRICER/Greeks.h ../PRICER/qcustomplot.h .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/main.cpp ../PRICER/PayOff.cpp ../PRICER/Genealeatoire.cpp ../PRICER/Mainwindow.cpp ../PRICER/MC.cpp ../PRICER/Option.cpp ../PRICER/StatGatherer.cpp ../PRICER/Greeks.cpp ../PRICER/qcustomplot.cpp .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/mainwindow.ui .tmp/PRICER++1.0.0/ && (cd `dirname .tmp/PRICER++1.0.0` && $(TAR) PRICER++1.0.0.tar PRICER++1.0.0 && $(COMPRESS) PRICER++1.0.0.tar) && $(MOVE) `dirname .tmp/PRICER++1.0.0`/PRICER++1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/PRICER++1.0.0
 
 
 clean:compiler_clean 
@@ -495,8 +500,14 @@ check: first
 
 compiler_objective_c_make_all:
 compiler_objective_c_clean:
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_RESSOURCE.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_RESSOURCE.cpp
+qrc_RESSOURCE.cpp: ../PRICER/RESSOURCE.qrc \
+		../PRICER/Levy.png \
+		../PRICER/Brownien.png
+	/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/bin/rcc -name RESSOURCE ../PRICER/RESSOURCE.qrc -o qrc_RESSOURCE.cpp
+
 compiler_moc_header_make_all: moc_Mainwindow.cpp moc_qcustomplot.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_Mainwindow.cpp moc_qcustomplot.cpp
@@ -711,7 +722,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -1096,6 +1107,9 @@ qcustomplot.o: ../PRICER/qcustomplot.cpp ../PRICER/qcustomplot.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintpreviewwidget.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o ../PRICER/qcustomplot.cpp
+
+qrc_RESSOURCE.o: qrc_RESSOURCE.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_RESSOURCE.o qrc_RESSOURCE.cpp
 
 moc_Mainwindow.o: moc_Mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Mainwindow.o moc_Mainwindow.cpp
