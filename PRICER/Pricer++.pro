@@ -11,27 +11,29 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 TARGET = PRICER++
 TEMPLATE = app
 
+INCLUDEPATH += $$QT_PROJECT_DIR/PRICER/
+
 
 SOURCES += main.cpp\
     PayOff.cpp \
     Genealeatoire.cpp \
-    Simu.cpp \
     Mainwindow.cpp \
-    qcustomplot.cpp \
     MC.cpp \
     Option.cpp \
     StatGatherer.cpp \
-    Greeks.cpp
+    Greeks.cpp \
+    qcustomplot.cpp
 
 HEADERS  += \
     Genealeatoire.h \
-    Simu.h \
     Mainwindow.h \
-    qcustomplot.h \
     MC.h \
     PayOff.h \
     Option.h \
     StatGatherer.h \
-    Greeks.h
+    Greeks.h \
+    qcustomplot.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES +=

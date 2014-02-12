@@ -19,9 +19,10 @@ class Option
     virtual double getSpot() const;
     virtual double getExpiry() const;
     virtual double getr() const;
-    virtual double Simu(double Spot, double Expiry) const;
+        virtual double getSigma() const;
+    virtual double Simu(double Spot, double Expiry, double r, double sigma) const;
     virtual double getPayOff(Option& Option) const;
-            virtual double getPayOffg(Option& Option, double Spot, double Expiry) const ;
+            virtual double getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const ;
     virtual double getPayOffgT(double Spot) const ;
 
     protected :
@@ -38,12 +39,13 @@ class OptionB : public Option
     public :
             OptionB(double Strike, double Expiry, double Spot, double Vol, double r, PayOff& thePayOff);
             virtual double operator()(double Spot) const;
-            virtual double Simu(double Spot, double Expiry) const;
+            virtual double Simu(double Spot, double Expiry, double r, double sigma) const;
             virtual double getSpot() const ;
             virtual double getExpiry() const ;
             virtual double getr() const ;
+            virtual double getSigma() const ;
             virtual double getPayOff(Option& Option) const ;
-                    virtual double getPayOffg(Option& Option, double Spot, double Expiry) const ;
+                    virtual double getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const ;
                 virtual double getPayOffgT(double Spot) const ;
     ~OptionB();
 
@@ -77,9 +79,10 @@ class OptionL : public Option
     virtual double getSpot() const ;
     virtual double getExpiry() const ;
     virtual double getr() const ;
+        virtual double getSigma() const ;
     virtual double getPayOff(Option& Option) const ;
-        virtual double getPayOffg(Option& Option, double Spot, double Expiry) const ;
-    virtual double Simu(double Spot, double Expiry) const;
+        virtual double getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const ;
+    virtual double Simu(double Spot, double Expiry, double r, double sigma) const;
         virtual double getPayOffgT(double Spot) const ;
 
 

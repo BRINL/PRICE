@@ -29,27 +29,26 @@ double MC::PrixT(int secondes, Option& Simu)
     double texec=0.;
     double runningSum(0);
     tbegin=time(NULL);              // Date du debut
-
     while (texec<secondes)
     {
         tend=time(NULL);                // Date de fin
         k+=1;
         runningSum+=Simu.getPayOff(Simu);
-        texec=difftime(tend,tbegin);    // tend-tbegin (resultat en secondes)
+        texec=difftime(tend,tbegin); // tend-tbegin (resultat en secondes)
     }
-    double mean = (runningSum/k)*exp(-Simu.getExpiry()*Simu.getr());
-    return mean;
+    double resultat=(runningSum/k)*exp(-Simu.getExpiry()*Simu.getr());
+    return resultat;
 }
 
-double MC::PrixAc(unsigned long NumberOfPaths, Option& Simu, double Spot, double Expiry)
+double MC::PrixAc(unsigned long NumberOfPaths, Option& Simu, double Spot, double Expiry, double r, double sigma)
 {
     double runningSum(0);
     for(int i=1;i<NumberOfPaths;i++)
     {
-        runningSum+=Simu.getPayOffg(Simu, Spot, Expiry);
+        runningSum+=Simu.getPayOffg(Simu, Spot, Expiry, r, sigma);
     }
     double mean = runningSum/NumberOfPaths;
-    double resultat=mean*exp(-(Simu.getExpiry()*Simu.getr()));
+    double resultat=mean*exp(-(Expiry*r));
     return resultat;
 }
 

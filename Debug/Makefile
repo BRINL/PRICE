@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -gdwarf-2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -mmacosx-version-min=10.6 -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -g -gdwarf-2 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -mmacosx-version-min=10.6 -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang -I../PRICER -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I. -F/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib
+INCPATH       = -I../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang -I../PRICER -I/PRICER/ -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers -I../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I. -F/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -mmacosx-version-min=10.6
 LIBS          = $(SUBLIBS) -F/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/lib -framework QtPrintSupport -framework QtWidgets -framework QtGui -framework QtCore -framework OpenGL -framework AGL 
@@ -48,24 +48,22 @@ OBJECTS_DIR   = ./
 SOURCES       = ../PRICER/main.cpp \
 		../PRICER/PayOff.cpp \
 		../PRICER/Genealeatoire.cpp \
-		../PRICER/Simu.cpp \
 		../PRICER/Mainwindow.cpp \
-		../PRICER/qcustomplot.cpp \
 		../PRICER/MC.cpp \
 		../PRICER/Option.cpp \
 		../PRICER/StatGatherer.cpp \
-		../PRICER/Greeks.cpp moc_Mainwindow.cpp \
+		../PRICER/Greeks.cpp \
+		../PRICER/qcustomplot.cpp moc_Mainwindow.cpp \
 		moc_qcustomplot.cpp
 OBJECTS       = main.o \
 		PayOff.o \
 		Genealeatoire.o \
-		Simu.o \
 		Mainwindow.o \
-		qcustomplot.o \
 		MC.o \
 		Option.o \
 		StatGatherer.o \
 		Greeks.o \
+		qcustomplot.o \
 		moc_Mainwindow.o \
 		moc_qcustomplot.o
 DIST          = ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/spec_pre.prf \
@@ -474,7 +472,7 @@ PRICER++.app/Contents/Info.plist:
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.PRICER++,g" -e "s,@EXECUTABLE@,PRICER++,g" -e "s,@TYPEINFO@,????,g" ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang/Info.plist.app >PRICER++.app/Contents/Info.plist
 dist: 
 	@test -d .tmp/PRICER++1.0.0 || mkdir -p .tmp/PRICER++1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/Genealeatoire.h ../PRICER/Simu.h ../PRICER/Mainwindow.h ../PRICER/qcustomplot.h ../PRICER/MC.h ../PRICER/PayOff.h ../PRICER/Option.h ../PRICER/StatGatherer.h ../PRICER/Greeks.h .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/main.cpp ../PRICER/PayOff.cpp ../PRICER/Genealeatoire.cpp ../PRICER/Simu.cpp ../PRICER/Mainwindow.cpp ../PRICER/qcustomplot.cpp ../PRICER/MC.cpp ../PRICER/Option.cpp ../PRICER/StatGatherer.cpp ../PRICER/Greeks.cpp .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/mainwindow.ui .tmp/PRICER++1.0.0/ && (cd `dirname .tmp/PRICER++1.0.0` && $(TAR) PRICER++1.0.0.tar PRICER++1.0.0 && $(COMPRESS) PRICER++1.0.0.tar) && $(MOVE) `dirname .tmp/PRICER++1.0.0`/PRICER++1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/PRICER++1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/Genealeatoire.h ../PRICER/Mainwindow.h ../PRICER/MC.h ../PRICER/PayOff.h ../PRICER/Option.h ../PRICER/StatGatherer.h ../PRICER/Greeks.h ../PRICER/qcustomplot.h .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/main.cpp ../PRICER/PayOff.cpp ../PRICER/Genealeatoire.cpp ../PRICER/Mainwindow.cpp ../PRICER/MC.cpp ../PRICER/Option.cpp ../PRICER/StatGatherer.cpp ../PRICER/Greeks.cpp ../PRICER/qcustomplot.cpp .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/mainwindow.ui .tmp/PRICER++1.0.0/ && (cd `dirname .tmp/PRICER++1.0.0` && $(TAR) PRICER++1.0.0.tar PRICER++1.0.0 && $(COMPRESS) PRICER++1.0.0.tar) && $(MOVE) `dirname .tmp/PRICER++1.0.0`/PRICER++1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/PRICER++1.0.0
 
 
 clean:compiler_clean 
@@ -869,14 +867,6 @@ PayOff.o: ../PRICER/PayOff.cpp ../PRICER/PayOff.h
 Genealeatoire.o: ../PRICER/Genealeatoire.cpp ../PRICER/Genealeatoire.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Genealeatoire.o ../PRICER/Genealeatoire.cpp
 
-Simu.o: ../PRICER/Simu.cpp ../PRICER/Simu.h \
-		../PRICER/Option.h \
-		../PRICER/PayOff.h \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../PRICER/MC.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Simu.o ../PRICER/Simu.cpp
-
 Mainwindow.o: ../PRICER/Mainwindow.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
@@ -1023,11 +1013,38 @@ Mainwindow.o: ../PRICER/Mainwindow.cpp ../PRICER/Mainwindow.h \
 		../PRICER/Option.h \
 		../PRICER/PayOff.h \
 		../PRICER/Genealeatoire.h \
-		../PRICER/Simu.h \
 		../PRICER/MC.h \
 		../PRICER/Greeks.h \
 		../PRICER/StatGatherer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Mainwindow.o ../PRICER/Mainwindow.cpp
+
+MC.o: ../PRICER/MC.cpp ../PRICER/MC.h \
+		../PRICER/Option.h \
+		../PRICER/PayOff.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MC.o ../PRICER/MC.cpp
+
+Option.o: ../PRICER/Option.cpp ../PRICER/Option.h \
+		../PRICER/PayOff.h \
+		../PRICER/Genealeatoire.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Option.o ../PRICER/Option.cpp
+
+StatGatherer.o: ../PRICER/StatGatherer.cpp ../PRICER/Option.h \
+		../PRICER/PayOff.h \
+		../PRICER/StatGatherer.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../PRICER/MC.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o StatGatherer.o ../PRICER/StatGatherer.cpp
+
+Greeks.o: ../PRICER/Greeks.cpp ../PRICER/Greeks.h \
+		../PRICER/Option.h \
+		../PRICER/PayOff.h \
+		../PRICER/MC.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Greeks.o ../PRICER/Greeks.cpp
 
 qcustomplot.o: ../PRICER/qcustomplot.cpp ../PRICER/qcustomplot.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
@@ -1079,34 +1096,6 @@ qcustomplot.o: ../PRICER/qcustomplot.cpp ../PRICER/qcustomplot.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintpreviewwidget.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o ../PRICER/qcustomplot.cpp
-
-MC.o: ../PRICER/MC.cpp ../PRICER/MC.h \
-		../PRICER/Option.h \
-		../PRICER/PayOff.h \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MC.o ../PRICER/MC.cpp
-
-Option.o: ../PRICER/Option.cpp ../PRICER/Option.h \
-		../PRICER/PayOff.h \
-		../PRICER/Genealeatoire.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Option.o ../PRICER/Option.cpp
-
-StatGatherer.o: ../PRICER/StatGatherer.cpp ../PRICER/Option.h \
-		../PRICER/PayOff.h \
-		../PRICER/StatGatherer.h \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../PRICER/MC.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o StatGatherer.o ../PRICER/StatGatherer.cpp
-
-Greeks.o: ../PRICER/Greeks.cpp ../PRICER/Greeks.h \
-		../PRICER/Option.h \
-		../PRICER/PayOff.h \
-		../PRICER/MC.h \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Greeks.o ../PRICER/Greeks.cpp
 
 moc_Mainwindow.o: moc_Mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Mainwindow.o moc_Mainwindow.cpp

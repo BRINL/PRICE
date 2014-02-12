@@ -23,6 +23,7 @@ public:
   void SetupPlotPayOffL();
   void SetupPrices();
   void graphClicked(QCPAbstractPlottable *plottable);
+  void Greeksc();
 public slots:
   void AddSimuL();
   void AddSimuB();
@@ -40,6 +41,7 @@ public slots:
   int edt();
 
   void update2();
+  void update3();
 
 
 

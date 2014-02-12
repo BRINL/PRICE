@@ -20,6 +20,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
@@ -160,6 +161,8 @@ public:
     QCustomPlot *Plot_ConvL;
     QWidget *tab_4;
     QHBoxLayout *horizontalLayout;
+    QWidget *widget_16;
+    QVBoxLayout *verticalLayout_19;
     QWidget *widget_7;
     QHBoxLayout *horizontalLayout_2;
     QWidget *widget_10;
@@ -174,12 +177,14 @@ public:
     QLabel *label_20;
     QLabel *label_21;
     QLabel *label_29;
+    QLabel *label_30;
     QWidget *widget_9;
     QVBoxLayout *verticalLayout_8;
     QLabel *DeltaB;
     QLabel *GammaB;
     QLabel *ThetaB;
     QLabel *VegaB;
+    QLabel *RhoB;
     QFrame *line_9;
     QWidget *widget_11;
     QVBoxLayout *verticalLayout_18;
@@ -193,12 +198,15 @@ public:
     QLabel *label_32;
     QLabel *label_33;
     QLabel *label_34;
+    QLabel *label_35;
     QWidget *widget_13;
     QVBoxLayout *verticalLayout_7;
     QLabel *DeltaL;
     QLabel *GammaL;
     QLabel *ThetaL;
     QLabel *VegaL;
+    QLabel *RhoL;
+    QPushButton *Greeks;
     QWidget *tab_5;
     QGridLayout *gridLayout;
     QFrame *line;
@@ -218,6 +226,11 @@ public:
     QFrame *line_4;
     QCustomPlot *Plot_PayOffL;
     QLabel *label_4;
+    QWidget *tab_7;
+    QVBoxLayout *verticalLayout_20;
+    QPlainTextEdit *plainTextEdit;
+    QWidget *widget_17;
+    QGridLayout *gridLayout_8;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -286,6 +299,7 @@ public:
         eSpot = new QLineEdit(frame_16);
         eSpot->setObjectName(QStringLiteral("eSpot"));
         eSpot->setMaximumSize(QSize(150, 16777215));
+        eSpot->setInputMethodHints(Qt::ImhFormattedNumbersOnly);
 
         verticalLayout_9->addWidget(eSpot);
 
@@ -978,7 +992,13 @@ public:
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        widget_7 = new QWidget(tab_4);
+        widget_16 = new QWidget(tab_4);
+        widget_16->setObjectName(QStringLiteral("widget_16"));
+        verticalLayout_19 = new QVBoxLayout(widget_16);
+        verticalLayout_19->setSpacing(6);
+        verticalLayout_19->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
+        widget_7 = new QWidget(widget_16);
         widget_7->setObjectName(QStringLiteral("widget_7"));
         sizePolicy.setHeightForWidth(widget_7->sizePolicy().hasHeightForWidth());
         widget_7->setSizePolicy(sizePolicy);
@@ -1039,6 +1059,11 @@ public:
 
         verticalLayout_15->addWidget(label_29);
 
+        label_30 = new QLabel(widget_8);
+        label_30->setObjectName(QStringLiteral("label_30"));
+
+        verticalLayout_15->addWidget(label_30);
+
 
         horizontalLayout_7->addWidget(widget_8);
 
@@ -1067,6 +1092,11 @@ public:
         VegaB->setObjectName(QStringLiteral("VegaB"));
 
         verticalLayout_8->addWidget(VegaB);
+
+        RhoB = new QLabel(widget_9);
+        RhoB->setObjectName(QStringLiteral("RhoB"));
+
+        verticalLayout_8->addWidget(RhoB);
 
 
         horizontalLayout_7->addWidget(widget_9);
@@ -1137,6 +1167,11 @@ public:
 
         verticalLayout_16->addWidget(label_34);
 
+        label_35 = new QLabel(widget_12);
+        label_35->setObjectName(QStringLiteral("label_35"));
+
+        verticalLayout_16->addWidget(label_35);
+
 
         horizontalLayout_5->addWidget(widget_12);
 
@@ -1166,6 +1201,11 @@ public:
 
         verticalLayout_7->addWidget(VegaL);
 
+        RhoL = new QLabel(widget_13);
+        RhoL->setObjectName(QStringLiteral("RhoL"));
+
+        verticalLayout_7->addWidget(RhoL);
+
 
         horizontalLayout_5->addWidget(widget_13);
 
@@ -1176,7 +1216,15 @@ public:
         horizontalLayout_2->addWidget(widget_11);
 
 
-        horizontalLayout->addWidget(widget_7);
+        verticalLayout_19->addWidget(widget_7);
+
+        Greeks = new QPushButton(widget_16);
+        Greeks->setObjectName(QStringLiteral("Greeks"));
+
+        verticalLayout_19->addWidget(Greeks);
+
+
+        horizontalLayout->addWidget(widget_16);
 
         Res->addTab(tab_4, QString());
         tab_5 = new QWidget();
@@ -1289,6 +1337,32 @@ public:
         gridLayout_3->addWidget(label_4, 4, 0, 1, 1);
 
         Res->addTab(tab_6, QString());
+        tab_7 = new QWidget();
+        tab_7->setObjectName(QStringLiteral("tab_7"));
+        verticalLayout_20 = new QVBoxLayout(tab_7);
+        verticalLayout_20->setSpacing(6);
+        verticalLayout_20->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_20->setObjectName(QStringLiteral("verticalLayout_20"));
+        plainTextEdit = new QPlainTextEdit(tab_7);
+        plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
+        plainTextEdit->setTabChangesFocus(true);
+        plainTextEdit->setReadOnly(true);
+        plainTextEdit->setOverwriteMode(false);
+        plainTextEdit->setTextInteractionFlags(Qt::NoTextInteraction);
+        plainTextEdit->setBackgroundVisible(false);
+
+        verticalLayout_20->addWidget(plainTextEdit);
+
+        widget_17 = new QWidget(tab_7);
+        widget_17->setObjectName(QStringLiteral("widget_17"));
+        gridLayout_8 = new QGridLayout(widget_17);
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setContentsMargins(11, 11, 11, 11);
+        gridLayout_8->setObjectName(QStringLiteral("gridLayout_8"));
+
+        verticalLayout_20->addWidget(widget_17);
+
+        Res->addTab(tab_7, QString());
 
         gridLayout_4->addWidget(Res, 0, 0, 1, 1);
 
@@ -1300,7 +1374,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        Res->setCurrentIndex(3);
+        Res->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1315,11 +1389,11 @@ public:
         eSpot->setText(QString());
         eStrike->setText(QString());
         eExpiry->setText(QApplication::translate("MainWindow", "1", 0));
-        eVol->setText(QApplication::translate("MainWindow", "0.3", 0));
-        er->setText(QApplication::translate("MainWindow", "0.09", 0));
+        eVol->setText(QApplication::translate("MainWindow", "0.35", 0));
+        er->setText(QApplication::translate("MainWindow", "0.015", 0));
         elambda->setText(QApplication::translate("MainWindow", "3", 0));
-        evega2->setText(QApplication::translate("MainWindow", "0.0001", 0));
-        em->setText(QApplication::translate("MainWindow", "0.0002", 0));
+        evega2->setText(QApplication::translate("MainWindow", "0.03", 0));
+        em->setText(QApplication::translate("MainWindow", "0.02", 0));
         label_43->setText(QApplication::translate("MainWindow", "Spot :", 0));
         label_44->setText(QApplication::translate("MainWindow", "Strike :", 0));
         label_45->setText(QApplication::translate("MainWindow", "Maturit\303\251 (en ann\303\251es) :", 0));
@@ -1335,10 +1409,10 @@ public:
         label_49->setText(QApplication::translate("MainWindow", "m :", 0));
         label_50->setText(QApplication::translate("MainWindow", "vega2 :", 0));
         label_51->setText(QApplication::translate("MainWindow", "Hypoth\303\250ses chiffr\303\251es :", 0));
-        eNumberOfPaths->setText(QApplication::translate("MainWindow", "10", 0));
+        eNumberOfPaths->setText(QApplication::translate("MainWindow", "1000000", 0));
         et->setText(QApplication::translate("MainWindow", "Temps (s)", 0));
         eite->setText(QApplication::translate("MainWindow", "Nb it\303\251.", 0));
-        esecondes->setText(QApplication::translate("MainWindow", "1", 0));
+        esecondes->setText(QApplication::translate("MainWindow", "3", 0));
         label_58->setText(QApplication::translate("MainWindow", "Europ\303\251enne", 0));
         eCal->setText(QApplication::translate("MainWindow", "Call", 0));
         ePut->setText(QApplication::translate("MainWindow", "Put", 0));
@@ -1350,14 +1424,14 @@ public:
         label_57->setText(QApplication::translate("MainWindow", "Autres hypoth\303\250ses :", 0));
         OK->setText(QApplication::translate("MainWindow", "Calculer", 0));
         Res->setTabText(Res->indexOf(tab_2), QApplication::translate("MainWindow", "Hypoth\303\250ses", 0));
-        lSpot->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lStrike->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lExpiry->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lsigma2->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        tr->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        llambda->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lm->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lvega2->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        lSpot->setText(QApplication::translate("MainWindow", "-", 0));
+        lStrike->setText(QApplication::translate("MainWindow", "-", 0));
+        lExpiry->setText(QApplication::translate("MainWindow", "-", 0));
+        lsigma2->setText(QApplication::translate("MainWindow", "-", 0));
+        tr->setText(QApplication::translate("MainWindow", "-", 0));
+        llambda->setText(QApplication::translate("MainWindow", "-", 0));
+        lm->setText(QApplication::translate("MainWindow", "-", 0));
+        lvega2->setText(QApplication::translate("MainWindow", "-", 0));
         label_13->setText(QApplication::translate("MainWindow", "Spot :", 0));
         label_12->setText(QApplication::translate("MainWindow", "Strike :", 0));
         label_14->setText(QApplication::translate("MainWindow", "Maturit\303\251 (en ann\303\251es) :", 0));
@@ -1367,11 +1441,11 @@ public:
         label_9->setText(QApplication::translate("MainWindow", "m :", 0));
         label_7->setText(QApplication::translate("MainWindow", "vega2 :", 0));
         label_22->setText(QApplication::translate("MainWindow", "Hypoth\303\250ses chiffr\303\251es :", 0));
-        lOptionType->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lCoP->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        SMC->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lNumberOfPaths->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lsecondes->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        lOptionType->setText(QApplication::translate("MainWindow", "-", 0));
+        lCoP->setText(QApplication::translate("MainWindow", "-", 0));
+        SMC->setText(QApplication::translate("MainWindow", "-", 0));
+        lNumberOfPaths->setText(QApplication::translate("MainWindow", "-", 0));
+        lsecondes->setText(QApplication::translate("MainWindow", "-", 0));
         label_25->setText(QApplication::translate("MainWindow", "Types d'options :", 0));
         label_26->setText(QApplication::translate("MainWindow", "Call ou Put ? :", 0));
         label_28->setText(QApplication::translate("MainWindow", "Stop MC ? :", 0));
@@ -1379,35 +1453,40 @@ public:
         label_24->setText(QApplication::translate("MainWindow", "Temps de calcul : ", 0));
         label_23->setText(QApplication::translate("MainWindow", "Autres hypoth\303\250ses :", 0));
         label_6->setText(QApplication::translate("MainWindow", "Prix Levy", 0));
-        VarEmpB->setText(QApplication::translate("MainWindow", "0", 0));
-        label_17->setText(QApplication::translate("MainWindow", "Ecart type empirique :", 0));
+        VarEmpB->setText(QApplication::translate("MainWindow", "-", 0));
+        label_17->setText(QApplication::translate("MainWindow", "Ecart type empirique <", 0));
         label_5->setText(QApplication::translate("MainWindow", "Prix BSM", 0));
-        VarEmpL->setText(QApplication::translate("MainWindow", "0", 0));
-        label_18->setText(QApplication::translate("MainWindow", "Ecart type empirique :", 0));
-        RB->setText(QApplication::translate("MainWindow", "1", 0));
-        RL->setText(QApplication::translate("MainWindow", "1", 0));
+        VarEmpL->setText(QApplication::translate("MainWindow", "-", 0));
+        label_18->setText(QApplication::translate("MainWindow", "Ecart type empirique <", 0));
+        RB->setText(QApplication::translate("MainWindow", "-", 0));
+        RL->setText(QApplication::translate("MainWindow", "-", 0));
         Res->setTabText(Res->indexOf(tab), QApplication::translate("MainWindow", "R\303\251sultats", 0));
         label_15->setText(QApplication::translate("MainWindow", "- Graphe de convergence des estimateurs (mod\303\250le Black-Scholes-Merton)", 0));
         label_16->setText(QApplication::translate("MainWindow", "- Graphe de convergence des estimateurs (mod\303\250le de Levy)", 0));
         Res->setTabText(Res->indexOf(tab_3), QApplication::translate("MainWindow", "Graphe de convergence", 0));
         label_38->setText(QApplication::translate("MainWindow", "Dans le cadre de Black-Scholes-Merton", 0));
-        label_19->setText(QApplication::translate("MainWindow", "Delta", 0));
-        label_20->setText(QApplication::translate("MainWindow", "Gamma", 0));
-        label_21->setText(QApplication::translate("MainWindow", "Theta", 0));
-        label_29->setText(QApplication::translate("MainWindow", "Vega", 0));
-        DeltaB->setText(QApplication::translate("MainWindow", "0", 0));
-        GammaB->setText(QApplication::translate("MainWindow", "0", 0));
-        ThetaB->setText(QApplication::translate("MainWindow", "0", 0));
-        VegaB->setText(QApplication::translate("MainWindow", "0", 0));
+        label_19->setText(QApplication::translate("MainWindow", "Delta :", 0));
+        label_20->setText(QApplication::translate("MainWindow", "Gamma :", 0));
+        label_21->setText(QApplication::translate("MainWindow", "Theta :", 0));
+        label_29->setText(QApplication::translate("MainWindow", "Vega :", 0));
+        label_30->setText(QApplication::translate("MainWindow", "Rho :", 0));
+        DeltaB->setText(QApplication::translate("MainWindow", "-", 0));
+        GammaB->setText(QApplication::translate("MainWindow", "-", 0));
+        ThetaB->setText(QApplication::translate("MainWindow", "-", 0));
+        VegaB->setText(QApplication::translate("MainWindow", "-", 0));
+        RhoB->setText(QApplication::translate("MainWindow", "-", 0));
         label_39->setText(QApplication::translate("MainWindow", "Dans le cadre du mod\303\250le de Levy", 0));
-        label_31->setText(QApplication::translate("MainWindow", "Delta", 0));
-        label_32->setText(QApplication::translate("MainWindow", "Gamma", 0));
-        label_33->setText(QApplication::translate("MainWindow", "Theta", 0));
-        label_34->setText(QApplication::translate("MainWindow", "Vega", 0));
-        DeltaL->setText(QApplication::translate("MainWindow", "0", 0));
-        GammaL->setText(QApplication::translate("MainWindow", "0", 0));
-        ThetaL->setText(QApplication::translate("MainWindow", "0", 0));
-        VegaL->setText(QApplication::translate("MainWindow", "0", 0));
+        label_31->setText(QApplication::translate("MainWindow", "Delta :", 0));
+        label_32->setText(QApplication::translate("MainWindow", "Gamma :", 0));
+        label_33->setText(QApplication::translate("MainWindow", "Theta :", 0));
+        label_34->setText(QApplication::translate("MainWindow", "Vega :", 0));
+        label_35->setText(QApplication::translate("MainWindow", "Rho :", 0));
+        DeltaL->setText(QApplication::translate("MainWindow", "-", 0));
+        GammaL->setText(QApplication::translate("MainWindow", "-", 0));
+        ThetaL->setText(QApplication::translate("MainWindow", "-", 0));
+        VegaL->setText(QApplication::translate("MainWindow", "-", 0));
+        RhoL->setText(QApplication::translate("MainWindow", "-", 0));
+        Greeks->setText(QApplication::translate("MainWindow", "Calculer", 0));
         Res->setTabText(Res->indexOf(tab_4), QApplication::translate("MainWindow", "Les Grecques", 0));
         label_2->setText(QApplication::translate("MainWindow", "- Simulation du cours du sous-jacent dans le cadre du mod\303\250le de Levy (processus \303\240 sauts)", 0));
         label->setText(QApplication::translate("MainWindow", "- Simulation du cours du sous-jacent dans le cadre du mod\303\250le de Black-Scholes-Merton (mouvent brownien g\303\251om\303\251trique)", 0));
@@ -1417,6 +1496,8 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "- Pay-Off selon le Spot Price dans le cadre du mod\303\250le de Black-Scholes-Merton (mouvent brownien g\303\251om\303\251trique)", 0));
         label_4->setText(QApplication::translate("MainWindow", "- Pay-Off selon le Spot Price dans le cadre du mod\303\250le de Levy (processus \303\240 sauts)", 0));
         Res->setTabText(Res->indexOf(tab_6), QApplication::translate("MainWindow", "Graphe Pay-Off", 0));
+        plainTextEdit->setPlainText(QApplication::translate("MainWindow", "Bonjour, ceci est un test", 0));
+        Res->setTabText(Res->indexOf(tab_7), QApplication::translate("MainWindow", "Aide", 0));
     } // retranslateUi
 
 };

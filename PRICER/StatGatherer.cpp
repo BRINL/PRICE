@@ -14,12 +14,12 @@ QVector<double> StatGatherer :: SimuCoursB()
 {
     QVector<double> StatG(m_taille);
     double pas=m_fin/m_taille;
-    double rec=m_MonOption.Simu(m_MonOption.getSpot(), pas);
+    double rec=m_MonOption.Simu(m_MonOption.getSpot(), pas, m_MonOption.getr(), m_MonOption.getSigma());
     double axe(0);
     for (int i=0;i<m_taille;++i)
     {
         axe+=pas;
-        rec=m_MonOption.Simu(rec, pas);
+        rec=m_MonOption.Simu(rec, pas, m_MonOption.getr(), m_MonOption.getSigma());
         StatG[i]=rec;
     }
     return StatG;
@@ -47,7 +47,7 @@ QVector<double> StatGatherer :: GPO()
     for (int i=0;i<m_taille;++i)
     {
         axe+=pas;
-        GPO[i]=maMC.PrixAc(10000,m_MonOption,axe, m_MonOption.getExpiry());
+        GPO[i]=maMC.PrixAc(10000,m_MonOption,axe, m_MonOption.getExpiry(), m_MonOption.getr(), m_MonOption.getSigma());
     }
     return GPO;
 }

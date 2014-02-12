@@ -26,7 +26,7 @@ double Option::getPayOff(Option& Option) const
     return 0;
 }
 
-double Option::getPayOffg(Option& Option, double Spot, double Expiry) const
+double Option::getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const
 {
     return 0;
 }
@@ -42,9 +42,14 @@ double Option::getr() const
     return 0;
 }
 
+double Option::getSigma() const
+{
+    return 0;
+}
+
 // Méthode virtuelle pure ??? (vérifier la dénomination)//
 
-double Option::Simu(double Spot, double Expiry) const
+double Option::Simu(double Spot, double Expiry, double r, double sigma) const
 {
     return 0;
 }
@@ -73,12 +78,12 @@ double OptionB::operator()(double Spot) const
 
 // Une version avec choix Spot et Expiry pour tracer les graphes, plus long car les calculs sont répétés dans chaque boucle de la MC //
 
-double OptionB::Simu(double Spot, double Expiry) const
+double OptionB::Simu(double Spot, double Expiry, double r, double sigma) const
 {
-    double varianceSB(m_Vol*m_Vol*Expiry);
+    double varianceSB(sigma*sigma*Expiry);
     double RootvarianceSB(sqrt(varianceSB));
     double demivarSB(-0.5*varianceSB);
-    double movedSpot(Spot*exp(m_r*Expiry+demivarSB));
+    double movedSpot(Spot*exp(r*Expiry+demivarSB));
     double thisGaussian = gNormale();
     double SimuBr = movedSpot*exp(RootvarianceSB*thisGaussian);
     return SimuBr;
@@ -101,14 +106,19 @@ double OptionB::getr() const
     return m_r;
 }
 
+double OptionB::getSigma() const
+{
+    return m_Vol;
+}
+
 double OptionB::getPayOff(Option& Option) const
 {
     return m_thePayOff(Option(m_Spot));
 }
 
-double OptionB::getPayOffg(Option& Option, double Spot, double Expiry) const
+double OptionB::getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const
 {
-    return m_thePayOff(Option.Simu(Spot, Expiry));
+    return m_thePayOff(Option.Simu(Spot, Expiry, r, sigma));
 }
 
 double OptionB::getPayOffgT(double Spot) const
@@ -143,12 +153,12 @@ double OptionL::operator()(double Spot) const
     return SpotTL;
 }
 
-double OptionL::Simu(double Spot, double Expiry) const
+double OptionL::Simu(double Spot, double Expiry, double r, double sigma) const
 {
-    double varianceSL(m_Vol*m_Vol*Expiry);
+    double varianceSL(sigma*sigma*Expiry);
     double RootvarianceSL(sqrt(varianceSL));
     double demivarSL(-0.5*varianceSL);
-    double movedSpot(Spot*exp(m_r*Expiry+demivarSL));
+    double movedSpot(Spot*exp(r*Expiry+demivarSL));
     double thisGaussian = gNormale();
     double SimuTL = movedSpot*exp(RootvarianceSL*thisGaussian);
     double T(1);
@@ -177,14 +187,19 @@ double OptionL::getr() const
     return m_r;
 }
 
+double OptionL::getSigma() const
+{
+    return m_Vol;
+}
+
 double OptionL::getPayOff(Option& Option) const
 {
     return m_thePayOff(Option(m_Spot));
 }
 
-double OptionL::getPayOffg(Option& Option, double Spot, double Expiry) const
+double OptionL::getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const
 {
-    return m_thePayOff(Option.Simu(Spot, Expiry));
+    return m_thePayOff(Option.Simu(Spot, Expiry, r, sigma));
 }
 
 double OptionL::getPayOffgT(double Spot) const

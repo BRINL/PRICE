@@ -3,7 +3,6 @@
 #include "Option.h"
 #include "Genealeatoire.h"
 #include "Time.h"
-#include "Simu.h"
 #include "MC.h"
 #include "Greeks.h"
 #include "StatGatherer.h"
@@ -12,6 +11,7 @@
 #include <vector>
 #include <QtGui>
 #include <QWidget>
+#include <QPixmap>
 
 using namespace std;
 
@@ -24,12 +24,13 @@ MainWindow::MainWindow(QWidget *parent) :
 { 
 
   ui->setupUi(this);
+  /*
   SetupPlotSimuB();
   SetupPlotSimuL();
   SetupPlotPayOffB();
   SetupPlotPayOffL();
   SetupPrices();
-
+*/
 
   QWidget::setUpdatesEnabled(true);
   // On initialise les axes des graphes à partir des données rentrées par l'utilisateur //
@@ -46,6 +47,7 @@ connect(ui->PL, SIGNAL(clicked()), this, SLOT(AddSimuL()));
 
 connect(ui->eVol, SIGNAL(returnPressed()), this, SLOT(edVol()));
 connect(ui->OK, SIGNAL(clicked()), this, SLOT(update2()));
+connect(ui->Greeks, SIGNAL(clicked()), this, SLOT(update3()));
 
 }
 
@@ -159,11 +161,58 @@ void  MainWindow::update2()
     ui->Plot_PayOffL->clearGraphs();
     ui->Plot_SimuB->clearGraphs();
     ui->Plot_SimuL->clearGraphs();
+    ui->Plot_ConvL->clearGraphs();
+    ui->Plot_ConvB->clearGraphs();
+    ui->RhoB->setText("-");
+    ui->RhoL->setText("-");
+    ui->VegaB->setText("-");
+    ui->VegaL->setText("-");
+    ui->GammaB->setText("-");
+    ui->GammaL->setText("-");
+    ui->DeltaB->setText("-");
+    ui->DeltaL->setText("-");
+    ui->ThetaB->setText("-");
+    ui->ThetaL->setText("-");
     SetupPlotSimuB();
     SetupPlotSimuL();
     SetupPlotPayOffB();
     SetupPlotPayOffL();
     SetupPrices();
+            }
+}
+
+void  MainWindow::update3()
+{
+    // INITIALISATION DES VALEURS //
+
+        double Spot(0);
+        Spot=edSpot();
+        double Strike(0);
+        Strike=edStrike();
+        double Expiry(0);
+        Expiry=edExpiry();
+        double Vol(0);
+        Vol=edVol();
+        double r(0);
+        r=edr();
+        double lambda(0);
+        lambda=edlambda();
+        double m(0);
+        m=edm();
+        double vega2(0);
+        vega2=edvega2();
+        int StopMCType(0);
+        if (edMCStop()==false)
+            StopMCType=1;
+        int TypeOption(0);
+        if (edPOC()==true)
+            TypeOption=1;
+        unsigned long NumberOfPaths(0);
+        NumberOfPaths=edNumberOfPaths();
+        int secondes(0);
+        secondes=edt();
+   {
+        Greeksc();
             }
 }
 
@@ -380,7 +429,7 @@ void MainWindow::SetupPlotPayOffB()
    ui->Plot_PayOffB->legend->setFont(legendFont);
    ui->Plot_PayOffB->legend->setSelectedFont(legendFont);
    ui->Plot_PayOffB->legend->setSelectableParts(QCPLegend::spItems);
-   ui->Plot_PayOffB->xAxis->setRange(0, 2*Spot, Qt::AlignLeft);
+   ui->Plot_PayOffB->xAxis->setRange(0, 2*Strike, Qt::AlignLeft);
    ui->Plot_PayOffB->yAxis->setRange(0, Spot, Qt::AlignLeft);
    ui->Plot_PayOffB->xAxis->setLabel("Spot Price");
    ui->Plot_PayOffB->yAxis->setLabel("Prix de l'option");
@@ -390,7 +439,7 @@ void MainWindow::SetupPlotPayOffB()
    ui->Plot_PayOffB->graph()->setPen(graphPen);
 
 // Vecteurs du graphe //
-   StatGatherer GraphePO(pSimuB, 2*Strike, prec);
+   StatGatherer GraphePO(pSimuB, prec, 2*Strike);
    QVector<double> x=GraphePO.Axis();
    QVector<double> y=GraphePO.GPO();
    QVector<double> z=GraphePO.GPOT();
@@ -464,7 +513,7 @@ void MainWindow::SetupPlotPayOffL()
            ui->Plot_PayOffL->legend->setFont(legendFont);
            ui->Plot_PayOffL->legend->setSelectedFont(legendFont);
            ui->Plot_PayOffL->legend->setSelectableParts(QCPLegend::spItems);
-           ui->Plot_PayOffL->xAxis->setRange(0, 2*Spot, Qt::AlignLeft);
+           ui->Plot_PayOffL->xAxis->setRange(0, 2*Strike, Qt::AlignLeft);
            ui->Plot_PayOffL->yAxis->setRange(0, Spot, Qt::AlignLeft);
            ui->Plot_PayOffL->xAxis->setLabel("Spot Price");
            ui->Plot_PayOffL->yAxis->setLabel("Prix de l'option");
@@ -478,7 +527,7 @@ void MainWindow::SetupPlotPayOffL()
        ui->Plot_PayOffL->graph()->setPen(graphPen);
 
     // Vecteurs du graphe //
-StatGatherer GraphePO(pSimuL, 2*Strike, prec);
+StatGatherer GraphePO(pSimuL, prec, 2*Strike);
        QVector<double> x=GraphePO.Axis();
        QVector<double> y=GraphePO.GPO();
        QVector<double> z=GraphePO.GPOT();//gPayOT(pSimuL,*PO, prec, Strike);
@@ -535,6 +584,10 @@ void MainWindow::SetupPrices()
                PO = new PayOffPut(Strike);
            };
 
+if (StopMCType==1)
+    NumberOfPaths=1000000;
+
+
 OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
 OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
 
@@ -573,7 +626,7 @@ QString s = QString::number(NumberOfPaths);
 
 if (StopMCType==0)
 {
-    ui->SMC->setText("Nombre d'itérations");
+ui->SMC->setText("Nombre d'itérations");
 ui->lNumberOfPaths->setText(s);
 ui->lsecondes->setText("-");
 }
@@ -607,13 +660,6 @@ ui->Plot_ConvB->graph(0)->setData(x, y);
 ui->Plot_ConvB->axisRect()->setupFullAxesBox(true);
 ui->Plot_ConvB->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 ui->Plot_ConvB->replot();
-
-
-
-
-
-
-
 
 
 
@@ -660,11 +706,84 @@ double VarEmpL(VarEmpLS/(NumberOfPaths-1));
 ui->VarEmpL->setNum(sqrt(VarEmpL));
 
 
-Greeks GrecquesB(pSimuB,10000000);
-double delta=GrecquesB.Delta(Spot, Spot*0.01);
-ui->DeltaB->setNum(delta);
-double theta=GrecquesB.Theta(Expiry, Expiry*0.01);
-ui->ThetaB->setNum(theta);
+}
+
+void MainWindow :: Greeksc()
+
+{
+    // INITIALISATION DES VALEURS //
+
+        double Spot(0);
+        Spot=edSpot();
+        double Strike(0);
+        Strike=edStrike();
+        double Expiry(0);
+        Expiry=edExpiry();
+        double Vol(0);
+        Vol=edVol();
+        double r(0);
+        r=edr();
+        double lambda(0);
+        lambda=edlambda();
+        double m(0);
+        m=edm();
+        double vega2(0);
+        vega2=edvega2();
+        int StopMCType(0);
+        if (edMCStop()==false)
+            StopMCType=1;
+        int TypeOption(0);
+        if (edPOC()==true)
+            TypeOption=1;
+        unsigned long NumberOfPaths(0);
+        NumberOfPaths=edNumberOfPaths();
+        int secondes(0);
+        secondes=edt();
+
+        PayOff* PO;
+           if (TypeOption==1)
+           {
+               PO = new PayOffCall(Strike);
+           }
+           else
+           {
+               PO = new PayOffPut(Strike);
+           };
+
+OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
+OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
+class Greeks GrecquesB(pSimuB,1000000);
+
+double deltaB=GrecquesB.Delta(Spot, Spot*0.02);
+ui->DeltaB->setNum(deltaB);
+
+double thetaB=GrecquesB.Theta(Expiry, Expiry*0.10);
+ui->ThetaB->setNum(thetaB);
+
+double gammaB=GrecquesB.Gamma(Spot,Spot*0.20);
+ui->GammaB->setNum(gammaB);
+
+double VegaB=GrecquesB.Vega(Vol,Vol*0.05);
+ui->VegaB->setNum(VegaB);
+
+double RhoB=GrecquesB.Rho(r,r*0.10);
+ui->RhoB->setNum(RhoB);
+
+class Greeks GrecquesL(pSimuL,1000000);
+double deltaL=GrecquesL.Delta(Spot, Spot*0.02);
+ui->DeltaL->setNum(deltaL);
+
+double thetaL=GrecquesL.Theta(Expiry, Expiry*0.10);
+ui->ThetaL->setNum(thetaL);
+
+double gammaL=GrecquesL.Gamma(Spot,Spot*0.20);
+ui->GammaL->setNum(gammaL);
+
+double VegaL=GrecquesL.Vega(Vol,Vol*0.01);
+ui->VegaL->setNum(VegaL);
+
+double RhoL=GrecquesL.Rho(r,r*0.20);
+ui->RhoL->setNum(RhoL);
 }
 
 ////////////////////////////////// AJOUTER SIMULATIONS DE COURS //////////////////////////////////////
