@@ -32,7 +32,8 @@ HEADERS  += \
     Option.h \
     StatGatherer.h \
     Greeks.h \
-    qcustomplot.h
+    qcustomplot.h \
+    Deriv.h
 
 FORMS    += mainwindow.ui
 

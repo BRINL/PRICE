@@ -477,7 +477,7 @@ PRICER++.app/Contents/Info.plist:
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.PRICER++,g" -e "s,@EXECUTABLE@,PRICER++,g" -e "s,@TYPEINFO@,????,g" ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang/Info.plist.app >PRICER++.app/Contents/Info.plist
 dist: 
 	@test -d .tmp/PRICER++1.0.0 || mkdir -p .tmp/PRICER++1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/RESSOURCE.qrc .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/Genealeatoire.h ../PRICER/Mainwindow.h ../PRICER/MC.h ../PRICER/PayOff.h ../PRICER/Option.h ../PRICER/StatGatherer.h ../PRICER/Greeks.h ../PRICER/qcustomplot.h .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/main.cpp ../PRICER/PayOff.cpp ../PRICER/Genealeatoire.cpp ../PRICER/Mainwindow.cpp ../PRICER/MC.cpp ../PRICER/Option.cpp ../PRICER/StatGatherer.cpp ../PRICER/Greeks.cpp ../PRICER/qcustomplot.cpp .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/mainwindow.ui .tmp/PRICER++1.0.0/ && (cd `dirname .tmp/PRICER++1.0.0` && $(TAR) PRICER++1.0.0.tar PRICER++1.0.0 && $(COMPRESS) PRICER++1.0.0.tar) && $(MOVE) `dirname .tmp/PRICER++1.0.0`/PRICER++1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/PRICER++1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/RESSOURCE.qrc .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/Genealeatoire.h ../PRICER/Mainwindow.h ../PRICER/MC.h ../PRICER/PayOff.h ../PRICER/Option.h ../PRICER/StatGatherer.h ../PRICER/Greeks.h ../PRICER/qcustomplot.h ../PRICER/Deriv.h .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/main.cpp ../PRICER/PayOff.cpp ../PRICER/Genealeatoire.cpp ../PRICER/Mainwindow.cpp ../PRICER/MC.cpp ../PRICER/Option.cpp ../PRICER/StatGatherer.cpp ../PRICER/Greeks.cpp ../PRICER/qcustomplot.cpp .tmp/PRICER++1.0.0/ && $(COPY_FILE) --parents ../PRICER/mainwindow.ui .tmp/PRICER++1.0.0/ && (cd `dirname .tmp/PRICER++1.0.0` && $(TAR) PRICER++1.0.0.tar PRICER++1.0.0 && $(COMPRESS) PRICER++1.0.0.tar) && $(MOVE) `dirname .tmp/PRICER++1.0.0`/PRICER++1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/PRICER++1.0.0
 
 
 clean:compiler_clean 
@@ -504,8 +504,8 @@ compiler_rcc_make_all: qrc_RESSOURCE.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_RESSOURCE.cpp
 qrc_RESSOURCE.cpp: ../PRICER/RESSOURCE.qrc \
-		../PRICER/Levy.png \
-		../PRICER/Brownien.png
+		../PRICER/Brownien.png \
+		../PRICER/Levy.png
 	/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/bin/rcc -name RESSOURCE ../PRICER/RESSOURCE.qrc -o qrc_RESSOURCE.cpp
 
 compiler_moc_header_make_all: moc_Mainwindow.cpp moc_qcustomplot.cpp
@@ -607,6 +607,8 @@ moc_Mainwindow.cpp: ../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Vers
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qdesktopservices.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qvalidator.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiversion.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
 		../PRICER/qcustomplot.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -618,8 +620,6 @@ moc_Mainwindow.cpp: ../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Vers
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPaintEvent \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QMouseEvent \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPixmap \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
@@ -652,6 +652,7 @@ moc_Mainwindow.cpp: ../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Vers
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportglobal.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintpreviewwidget.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportversion.h \
+		../PRICER/PayOff.h \
 		../PRICER/Mainwindow.h
 	/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 $(INCPATH) ../PRICER/Mainwindow.h -o moc_Mainwindow.cpp
 
@@ -711,7 +712,56 @@ compiler_moc_source_clean:
 compiler_uic_make_all: ui_mainwindow.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_mainwindow.h
-ui_mainwindow.h: ../PRICER/mainwindow.ui
+ui_mainwindow.h: ../PRICER/mainwindow.ui \
+		../../qcustomplot.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QPointer \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qpointer.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPainter \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainter.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPaintEvent \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qevent.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QMouseEvent \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPixmap \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qdatetime.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QMultiMap \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qmap.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QFlags \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qflags.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QDebug \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qdebug.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QVector2D \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector2d.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QStack \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstack.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QCache \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qcache.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QMargins \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qmargins.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qnumeric.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/QPrinter \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprinter.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QtNumeric \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/QtPrintSupport \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qabstractprintdialog.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qpagesetupdialog.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintdialog.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintpreviewdialog.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintengine.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprinterinfo.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportglobal.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintpreviewwidget.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportversion.h
 	/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/bin/uic ../PRICER/mainwindow.ui -o ui_mainwindow.h
 
 compiler_rez_source_make_all:
@@ -823,6 +873,8 @@ main.o: ../PRICER/main.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qdesktopservices.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qvalidator.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiversion.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
 		../PRICER/qcustomplot.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -834,8 +886,6 @@ main.o: ../PRICER/main.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPaintEvent \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QMouseEvent \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPixmap \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
@@ -868,6 +918,7 @@ main.o: ../PRICER/main.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportglobal.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintpreviewwidget.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportversion.h \
+		../PRICER/PayOff.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../PRICER/main.cpp
@@ -975,6 +1026,8 @@ Mainwindow.o: ../PRICER/Mainwindow.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qdesktopservices.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qvalidator.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiversion.h \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
 		../PRICER/qcustomplot.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
@@ -986,8 +1039,6 @@ Mainwindow.o: ../PRICER/Mainwindow.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPaintEvent \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QMouseEvent \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtGui.framework/Versions/5/Headers/QPixmap \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QDateTime \
@@ -1020,13 +1071,15 @@ Mainwindow.o: ../PRICER/Mainwindow.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportglobal.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qprintpreviewwidget.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportversion.h \
-		ui_mainwindow.h \
-		../PRICER/Option.h \
 		../PRICER/PayOff.h \
+		ui_mainwindow.h \
+		../../qcustomplot.h \
+		../PRICER/Option.h \
 		../PRICER/Genealeatoire.h \
 		../PRICER/MC.h \
 		../PRICER/Greeks.h \
-		../PRICER/StatGatherer.h
+		../PRICER/StatGatherer.h \
+		../PRICER/Deriv.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Mainwindow.o ../PRICER/Mainwindow.cpp
 
 MC.o: ../PRICER/MC.cpp ../PRICER/MC.h \
@@ -1054,7 +1107,8 @@ Greeks.o: ../PRICER/Greeks.cpp ../PRICER/Greeks.h \
 		../PRICER/PayOff.h \
 		../PRICER/MC.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
-		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h
+		../../../Qt5.2.1/5.2.1/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
+		../PRICER/Deriv.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Greeks.o ../PRICER/Greeks.cpp
 
 qcustomplot.o: ../PRICER/qcustomplot.cpp ../PRICER/qcustomplot.h \

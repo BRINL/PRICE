@@ -6,6 +6,7 @@
 #include "MC.h"
 #include "Greeks.h"
 #include "StatGatherer.h"
+#include "Deriv.h"
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -19,7 +20,7 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
 
   QMainWindow(parent),
-  ui(new Ui::MainWindow),  prec(200), Spot(0), Strike(0), Expiry(0), Vol(0), r(0), lambda(0), m(0), vega2(0), StopMCType(10), NumberOfPaths(0), secondes(0), PO(0)
+  ui(new Ui::MainWindow),  prec(200), Spot(0), Strike(0), Expiry(0), Vol(0), r(0), lambda(0), m(0), vega2(0), StopMCType(10), NumberOfPaths(0), secondes(0), PO(0), TypeOption(0)
   {
   ui->setupUi(this);
   QWidget::setUpdatesEnabled(true);
@@ -121,7 +122,6 @@ void  MainWindow::update2()
     vega2=edvega2();
     if (edMCStop()==false)
         StopMCType=1;
-    int TypeOption(0);
     if (edPOC()==true)
         TypeOption=1;
     NumberOfPaths=edNumberOfPaths();
@@ -157,6 +157,8 @@ void  MainWindow::update2()
     SetupPlotPayOffB();
     SetupPlotPayOffL();
     SetupPrices();
+
+
 
 }
 
@@ -518,38 +520,36 @@ void MainWindow :: Greeksc()
 
 OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
 OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
-class Greeks GrecquesB(pSimuB,1000000);
+long preci(1000000);
+Deltac DelB(pSimuB,preci);
+ui->DeltaB->setNum(Deriv(Spot,0.02*Spot,DelB));
 
-double deltaB=GrecquesB.Delta(Spot, Spot*0.02);
-ui->DeltaB->setNum(deltaB);
+Thetac TheB(pSimuB, preci);
+ui->ThetaB->setNum(-Deriv(Expiry, Expiry*0.1, TheB));
 
-double thetaB=GrecquesB.Theta(Expiry, Expiry*0.10);
-ui->ThetaB->setNum(thetaB);
+ui->GammaB->setNum(Deriv2(Spot,0.2*Spot,DelB));
 
-double gammaB=GrecquesB.Gamma(Spot,Spot*0.20);
-ui->GammaB->setNum(gammaB);
+Vegac VegB(pSimuB,preci);
+ui->VegaB->setNum(Deriv(Vol, Vol*0.05, VegB));
 
-double VegaB=GrecquesB.Vega(Vol,Vol*0.05);
-ui->VegaB->setNum(VegaB);
+Rhoc RhoB(pSimuB, preci);
+ui->RhoB->setNum(Deriv(r, r*0.1,RhoB));
 
-double RhoB=GrecquesB.Rho(r,r*0.10);
-ui->RhoB->setNum(RhoB);
 
-class Greeks GrecquesL(pSimuL,1000000);
-double deltaL=GrecquesL.Delta(Spot, Spot*0.02);
-ui->DeltaL->setNum(deltaL);
+Deltac DelL(pSimuL,preci);
+ui->DeltaL->setNum(Deriv(Spot,0.02*Spot,DelL));
 
-double thetaL=GrecquesL.Theta(Expiry, Expiry*0.10);
-ui->ThetaL->setNum(thetaL);
+Thetac TheL(pSimuL, preci);
+ui->ThetaL->setNum(-Deriv(Expiry, Expiry*0.1, TheL));
 
-double gammaL=GrecquesL.Gamma(Spot,Spot*0.20);
-ui->GammaL->setNum(gammaL);
 
-double VegaL=GrecquesL.Vega(Vol,Vol*0.01);
-ui->VegaL->setNum(VegaL);
+ui->GammaL->setNum(Deriv(Spot, Spot*0.2,DelL));
 
-double RhoL=GrecquesL.Rho(r,r*0.20);
-ui->RhoL->setNum(RhoL);
+Vegac VegL(pSimuL,preci);
+ui->VegaL->setNum(Deriv(Vol, Vol*0.05, VegL));
+
+Rhoc RhoL(pSimuL, preci);
+ui->RhoL->setNum(Deriv(r, r*0.1,RhoL));
 }
 
 ////////////////////////////////// AJOUTER SIMULATIONS DE COURS //////////////////////////////////////
