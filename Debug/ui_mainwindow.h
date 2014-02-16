@@ -39,7 +39,7 @@ public:
     QAction *actionSave_Document;
     QWidget *centralWidget;
     QGridLayout *gridLayout_4;
-    QTabWidget *Res;
+    QTabWidget *Graphes;
     QWidget *tab_2;
     QVBoxLayout *verticalLayout_5;
     QWidget *widget_6;
@@ -207,25 +207,43 @@ public:
     QLabel *VegaL;
     QLabel *RhoL;
     QPushButton *Greeks;
+    QWidget *tab_8;
+    QVBoxLayout *verticalLayout_21;
+    QWidget *widget_19;
+    QHBoxLayout *horizontalLayout_9;
+    QRadioButton *VarT;
+    QRadioButton *VarVol;
+    QRadioButton *Varr;
+    QCustomPlot *VarPar;
+    QLabel *label_36;
+    QPushButton *OKVarP;
     QWidget *tab_5;
     QGridLayout *gridLayout;
-    QFrame *line;
     QLabel *label_2;
     QCustomPlot *Plot_SimuL;
     QSpacerItem *horizontalSpacer;
     QLabel *label;
     QCustomPlot *Plot_SimuB;
     QFrame *line_2;
-    QPushButton *PB;
+    QFrame *line;
+    QWidget *widget_18;
+    QHBoxLayout *horizontalLayout_8;
     QPushButton *PL;
+    QPushButton *NetSimuL;
+    QWidget *widget_17;
+    QHBoxLayout *horizontalLayout_6;
+    QPushButton *PB;
+    QPushButton *NetSimuB;
     QWidget *tab_6;
     QGridLayout *gridLayout_3;
-    QLabel *label_3;
-    QCustomPlot *Plot_PayOffB;
-    QFrame *line_3;
-    QFrame *line_4;
     QCustomPlot *Plot_PayOffL;
     QLabel *label_4;
+    QFrame *line_4;
+    QFrame *line_3;
+    QLabel *label_3;
+    QCustomPlot *Plot_PayOffB;
+    QPushButton *OKPO;
+    QLabel *label_37;
     QWidget *tab_7;
     QVBoxLayout *verticalLayout_20;
     QTextEdit *textEdit;
@@ -235,7 +253,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(935, 782);
+        MainWindow->resize(1020, 785);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -256,14 +274,14 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        Res = new QTabWidget(centralWidget);
-        Res->setObjectName(QStringLiteral("Res"));
-        Res->setEnabled(true);
-        sizePolicy.setHeightForWidth(Res->sizePolicy().hasHeightForWidth());
-        Res->setSizePolicy(sizePolicy);
-        Res->setMinimumSize(QSize(650, 680));
-        Res->setMaximumSize(QSize(16777211, 16777215));
-        Res->setSizeIncrement(QSize(0, 0));
+        Graphes = new QTabWidget(centralWidget);
+        Graphes->setObjectName(QStringLiteral("Graphes"));
+        Graphes->setEnabled(true);
+        sizePolicy.setHeightForWidth(Graphes->sizePolicy().hasHeightForWidth());
+        Graphes->setSizePolicy(sizePolicy);
+        Graphes->setMinimumSize(QSize(650, 680));
+        Graphes->setMaximumSize(QSize(16777211, 16777215));
+        Graphes->setSizeIncrement(QSize(0, 0));
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
         verticalLayout_5 = new QVBoxLayout(tab_2);
@@ -595,7 +613,7 @@ public:
 
         verticalLayout_5->addWidget(OK);
 
-        Res->addTab(tab_2, QString());
+        Graphes->addTab(tab_2, QString());
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         gridLayout_5 = new QGridLayout(tab);
@@ -936,7 +954,7 @@ public:
 
         gridLayout_5->addWidget(frame_2, 0, 0, 1, 2);
 
-        Res->addTab(tab, QString());
+        Graphes->addTab(tab, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
         verticalLayout_6 = new QVBoxLayout(tab_3);
@@ -983,7 +1001,7 @@ public:
 
         verticalLayout_6->addWidget(Plot_ConvL);
 
-        Res->addTab(tab_3, QString());
+        Graphes->addTab(tab_3, QString());
         tab_4 = new QWidget();
         tab_4->setObjectName(QStringLiteral("tab_4"));
         horizontalLayout = new QHBoxLayout(tab_4);
@@ -1224,24 +1242,67 @@ public:
 
         horizontalLayout->addWidget(widget_16);
 
-        Res->addTab(tab_4, QString());
+        Graphes->addTab(tab_4, QString());
+        tab_8 = new QWidget();
+        tab_8->setObjectName(QStringLiteral("tab_8"));
+        verticalLayout_21 = new QVBoxLayout(tab_8);
+        verticalLayout_21->setSpacing(6);
+        verticalLayout_21->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_21->setObjectName(QStringLiteral("verticalLayout_21"));
+        widget_19 = new QWidget(tab_8);
+        widget_19->setObjectName(QStringLiteral("widget_19"));
+        horizontalLayout_9 = new QHBoxLayout(widget_19);
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        VarT = new QRadioButton(widget_19);
+        VarT->setObjectName(QStringLiteral("VarT"));
+
+        horizontalLayout_9->addWidget(VarT);
+
+        VarVol = new QRadioButton(widget_19);
+        VarVol->setObjectName(QStringLiteral("VarVol"));
+
+        horizontalLayout_9->addWidget(VarVol);
+
+        Varr = new QRadioButton(widget_19);
+        Varr->setObjectName(QStringLiteral("Varr"));
+
+        horizontalLayout_9->addWidget(Varr);
+
+
+        verticalLayout_21->addWidget(widget_19);
+
+        VarPar = new QCustomPlot(tab_8);
+        VarPar->setObjectName(QStringLiteral("VarPar"));
+        sizePolicy.setHeightForWidth(VarPar->sizePolicy().hasHeightForWidth());
+        VarPar->setSizePolicy(sizePolicy);
+        VarPar->setMinimumSize(QSize(300, 250));
+
+        verticalLayout_21->addWidget(VarPar);
+
+        label_36 = new QLabel(tab_8);
+        label_36->setObjectName(QStringLiteral("label_36"));
+        label_36->setFont(font5);
+
+        verticalLayout_21->addWidget(label_36);
+
+        OKVarP = new QPushButton(tab_8);
+        OKVarP->setObjectName(QStringLiteral("OKVarP"));
+
+        verticalLayout_21->addWidget(OKVarP);
+
+        Graphes->addTab(tab_8, QString());
         tab_5 = new QWidget();
         tab_5->setObjectName(QStringLiteral("tab_5"));
         gridLayout = new QGridLayout(tab_5);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        line = new QFrame(tab_5);
-        line->setObjectName(QStringLiteral("line"));
-        line->setFrameShape(QFrame::HLine);
-        line->setFrameShadow(QFrame::Sunken);
-
-        gridLayout->addWidget(line, 8, 0, 1, 1);
-
         label_2 = new QLabel(tab_5);
         label_2->setObjectName(QStringLiteral("label_2"));
 
-        gridLayout->addWidget(label_2, 10, 0, 1, 1);
+        gridLayout->addWidget(label_2, 11, 0, 1, 1);
 
         Plot_SimuL = new QCustomPlot(tab_5);
         Plot_SimuL->setObjectName(QStringLiteral("Plot_SimuL"));
@@ -1251,16 +1312,16 @@ public:
         Plot_SimuL->setMinimumSize(QSize(300, 250));
         Plot_SimuL->setMaximumSize(QSize(16777215, 16777215));
 
-        gridLayout->addWidget(Plot_SimuL, 12, 0, 1, 1);
+        gridLayout->addWidget(Plot_SimuL, 13, 0, 1, 1);
 
         horizontalSpacer = new QSpacerItem(40, 10, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer, 14, 0, 1, 1);
+        gridLayout->addItem(horizontalSpacer, 15, 0, 1, 1);
 
         label = new QLabel(tab_5);
         label->setObjectName(QStringLiteral("label"));
 
-        gridLayout->addWidget(label, 4, 0, 1, 1);
+        gridLayout->addWidget(label, 5, 0, 1, 1);
 
         Plot_SimuB = new QCustomPlot(tab_5);
         Plot_SimuB->setObjectName(QStringLiteral("Plot_SimuB"));
@@ -1268,59 +1329,69 @@ public:
         Plot_SimuB->setSizePolicy(sizePolicy);
         Plot_SimuB->setMinimumSize(QSize(300, 250));
 
-        gridLayout->addWidget(Plot_SimuB, 6, 0, 1, 1);
+        gridLayout->addWidget(Plot_SimuB, 7, 0, 1, 1);
 
         line_2 = new QFrame(tab_5);
         line_2->setObjectName(QStringLiteral("line_2"));
         line_2->setFrameShape(QFrame::HLine);
         line_2->setFrameShadow(QFrame::Sunken);
 
-        gridLayout->addWidget(line_2, 1, 0, 1, 1);
+        gridLayout->addWidget(line_2, 2, 0, 1, 1);
 
-        PB = new QPushButton(tab_5);
-        PB->setObjectName(QStringLiteral("PB"));
+        line = new QFrame(tab_5);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
 
-        gridLayout->addWidget(PB, 0, 0, 1, 1);
+        gridLayout->addWidget(line, 9, 0, 1, 1);
 
-        PL = new QPushButton(tab_5);
+        widget_18 = new QWidget(tab_5);
+        widget_18->setObjectName(QStringLiteral("widget_18"));
+        horizontalLayout_8 = new QHBoxLayout(widget_18);
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        PL = new QPushButton(widget_18);
         PL->setObjectName(QStringLiteral("PL"));
 
-        gridLayout->addWidget(PL, 7, 0, 1, 1);
+        horizontalLayout_8->addWidget(PL);
 
-        Res->addTab(tab_5, QString());
+        NetSimuL = new QPushButton(widget_18);
+        NetSimuL->setObjectName(QStringLiteral("NetSimuL"));
+        NetSimuL->setMaximumSize(QSize(200, 16777215));
+
+        horizontalLayout_8->addWidget(NetSimuL);
+
+
+        gridLayout->addWidget(widget_18, 8, 0, 1, 1);
+
+        widget_17 = new QWidget(tab_5);
+        widget_17->setObjectName(QStringLiteral("widget_17"));
+        horizontalLayout_6 = new QHBoxLayout(widget_17);
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        PB = new QPushButton(widget_17);
+        PB->setObjectName(QStringLiteral("PB"));
+
+        horizontalLayout_6->addWidget(PB);
+
+        NetSimuB = new QPushButton(widget_17);
+        NetSimuB->setObjectName(QStringLiteral("NetSimuB"));
+        NetSimuB->setMaximumSize(QSize(200, 16777215));
+
+        horizontalLayout_6->addWidget(NetSimuB);
+
+
+        gridLayout->addWidget(widget_17, 1, 0, 1, 1);
+
+        Graphes->addTab(tab_5, QString());
         tab_6 = new QWidget();
         tab_6->setObjectName(QStringLiteral("tab_6"));
         gridLayout_3 = new QGridLayout(tab_6);
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        label_3 = new QLabel(tab_6);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        gridLayout_3->addWidget(label_3, 1, 0, 1, 1);
-
-        Plot_PayOffB = new QCustomPlot(tab_6);
-        Plot_PayOffB->setObjectName(QStringLiteral("Plot_PayOffB"));
-        sizePolicy.setHeightForWidth(Plot_PayOffB->sizePolicy().hasHeightForWidth());
-        Plot_PayOffB->setSizePolicy(sizePolicy);
-        Plot_PayOffB->setMinimumSize(QSize(300, 250));
-
-        gridLayout_3->addWidget(Plot_PayOffB, 2, 0, 1, 1);
-
-        line_3 = new QFrame(tab_6);
-        line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setFrameShape(QFrame::HLine);
-        line_3->setFrameShadow(QFrame::Sunken);
-
-        gridLayout_3->addWidget(line_3, 3, 0, 1, 1);
-
-        line_4 = new QFrame(tab_6);
-        line_4->setObjectName(QStringLiteral("line_4"));
-        line_4->setFrameShape(QFrame::HLine);
-        line_4->setFrameShadow(QFrame::Sunken);
-
-        gridLayout_3->addWidget(line_4, 0, 0, 1, 1);
-
         Plot_PayOffL = new QCustomPlot(tab_6);
         Plot_PayOffL->setObjectName(QStringLiteral("Plot_PayOffL"));
         sizePolicy.setHeightForWidth(Plot_PayOffL->sizePolicy().hasHeightForWidth());
@@ -1334,7 +1405,45 @@ public:
 
         gridLayout_3->addWidget(label_4, 4, 0, 1, 1);
 
-        Res->addTab(tab_6, QString());
+        line_4 = new QFrame(tab_6);
+        line_4->setObjectName(QStringLiteral("line_4"));
+        line_4->setFrameShape(QFrame::HLine);
+        line_4->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_3->addWidget(line_4, 0, 0, 1, 1);
+
+        line_3 = new QFrame(tab_6);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setFrameShape(QFrame::HLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_3->addWidget(line_3, 3, 0, 1, 1);
+
+        label_3 = new QLabel(tab_6);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout_3->addWidget(label_3, 1, 0, 1, 1);
+
+        Plot_PayOffB = new QCustomPlot(tab_6);
+        Plot_PayOffB->setObjectName(QStringLiteral("Plot_PayOffB"));
+        sizePolicy.setHeightForWidth(Plot_PayOffB->sizePolicy().hasHeightForWidth());
+        Plot_PayOffB->setSizePolicy(sizePolicy);
+        Plot_PayOffB->setMinimumSize(QSize(300, 250));
+
+        gridLayout_3->addWidget(Plot_PayOffB, 2, 0, 1, 1);
+
+        OKPO = new QPushButton(tab_6);
+        OKPO->setObjectName(QStringLiteral("OKPO"));
+
+        gridLayout_3->addWidget(OKPO, 7, 0, 1, 1);
+
+        label_37 = new QLabel(tab_6);
+        label_37->setObjectName(QStringLiteral("label_37"));
+        label_37->setFont(font5);
+
+        gridLayout_3->addWidget(label_37, 6, 0, 1, 1);
+
+        Graphes->addTab(tab_6, QString());
         tab_7 = new QWidget();
         tab_7->setObjectName(QStringLiteral("tab_7"));
         verticalLayout_20 = new QVBoxLayout(tab_7);
@@ -1348,9 +1457,9 @@ public:
 
         verticalLayout_20->addWidget(textEdit);
 
-        Res->addTab(tab_7, QString());
+        Graphes->addTab(tab_7, QString());
 
-        gridLayout_4->addWidget(Res, 0, 0, 1, 1);
+        gridLayout_4->addWidget(Graphes, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
@@ -1360,7 +1469,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        Res->setCurrentIndex(6);
+        Graphes->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1372,11 +1481,11 @@ public:
         actionInsert_Plot->setText(QApplication::translate("MainWindow", "Insert Plot", 0));
         actionSave_Document->setText(QApplication::translate("MainWindow", "Save Document...", 0));
         eSpot->setInputMask(QString());
-        eSpot->setText(QString());
-        eStrike->setText(QString());
+        eSpot->setText(QApplication::translate("MainWindow", "55", 0));
+        eStrike->setText(QApplication::translate("MainWindow", "50", 0));
         eExpiry->setText(QApplication::translate("MainWindow", "1", 0));
-        eVol->setText(QApplication::translate("MainWindow", "0.35", 0));
-        er->setText(QApplication::translate("MainWindow", "0.015", 0));
+        eVol->setText(QApplication::translate("MainWindow", "0.2", 0));
+        er->setText(QApplication::translate("MainWindow", "0.09", 0));
         elambda->setText(QApplication::translate("MainWindow", "3", 0));
         evega2->setText(QApplication::translate("MainWindow", "0.03", 0));
         em->setText(QApplication::translate("MainWindow", "0.02", 0));
@@ -1395,7 +1504,7 @@ public:
         label_49->setText(QApplication::translate("MainWindow", "m :", 0));
         label_50->setText(QApplication::translate("MainWindow", "vega2 :", 0));
         label_51->setText(QApplication::translate("MainWindow", "Hypoth\303\250ses chiffr\303\251es :", 0));
-        eNumberOfPaths->setText(QApplication::translate("MainWindow", "1000000", 0));
+        eNumberOfPaths->setText(QApplication::translate("MainWindow", "100000", 0));
         et->setText(QApplication::translate("MainWindow", "Temps (s)", 0));
         eite->setText(QApplication::translate("MainWindow", "Nb it\303\251.", 0));
         esecondes->setText(QApplication::translate("MainWindow", "3", 0));
@@ -1409,7 +1518,7 @@ public:
         label_56->setText(QApplication::translate("MainWindow", "Temps de calcul : ", 0));
         label_57->setText(QApplication::translate("MainWindow", "Autres hypoth\303\250ses :", 0));
         OK->setText(QApplication::translate("MainWindow", "Calculer", 0));
-        Res->setTabText(Res->indexOf(tab_2), QApplication::translate("MainWindow", "Hypoth\303\250ses", 0));
+        Graphes->setTabText(Graphes->indexOf(tab_2), QApplication::translate("MainWindow", "Hypoth\303\250ses", 0));
         lSpot->setText(QApplication::translate("MainWindow", "-", 0));
         lStrike->setText(QApplication::translate("MainWindow", "-", 0));
         lExpiry->setText(QApplication::translate("MainWindow", "-", 0));
@@ -1446,10 +1555,10 @@ public:
         label_18->setText(QApplication::translate("MainWindow", "Ecart type empirique <", 0));
         RB->setText(QApplication::translate("MainWindow", "-", 0));
         RL->setText(QApplication::translate("MainWindow", "-", 0));
-        Res->setTabText(Res->indexOf(tab), QApplication::translate("MainWindow", "R\303\251sultats", 0));
+        Graphes->setTabText(Graphes->indexOf(tab), QApplication::translate("MainWindow", "R\303\251sultats", 0));
         label_15->setText(QApplication::translate("MainWindow", "- Graphe de convergence des estimateurs (mod\303\250le Black-Scholes-Merton)", 0));
         label_16->setText(QApplication::translate("MainWindow", "- Graphe de convergence des estimateurs (mod\303\250le de Levy)", 0));
-        Res->setTabText(Res->indexOf(tab_3), QApplication::translate("MainWindow", "Graphes de convergence", 0));
+        Graphes->setTabText(Graphes->indexOf(tab_3), QApplication::translate("MainWindow", "Graphes de convergence", 0));
         label_38->setText(QApplication::translate("MainWindow", "Dans le cadre de Black-Scholes-Merton", 0));
         label_19->setText(QApplication::translate("MainWindow", "Delta :", 0));
         label_20->setText(QApplication::translate("MainWindow", "Gamma :", 0));
@@ -1473,15 +1582,25 @@ public:
         VegaL->setText(QApplication::translate("MainWindow", "-", 0));
         RhoL->setText(QApplication::translate("MainWindow", "-", 0));
         Greeks->setText(QApplication::translate("MainWindow", "Calculer", 0));
-        Res->setTabText(Res->indexOf(tab_4), QApplication::translate("MainWindow", "Les Grecques", 0));
+        Graphes->setTabText(Graphes->indexOf(tab_4), QApplication::translate("MainWindow", "Les Grecques", 0));
+        VarT->setText(QApplication::translate("MainWindow", "Par rapport \303\240 la maturit\303\251", 0));
+        VarVol->setText(QApplication::translate("MainWindow", "Par rapport \303\240 la volatilit\303\251", 0));
+        Varr->setText(QApplication::translate("MainWindow", "Par rapport au taux sans risque (r)", 0));
+        label_36->setText(QApplication::translate("MainWindow", "*Les pentes de ces courbes en la valeur entr\303\251e par l'utilisateur correspondent respectivement \303\240 Theta, V\303\251ga, Rho.", 0));
+        OKVarP->setText(QApplication::translate("MainWindow", "Afficher", 0));
+        Graphes->setTabText(Graphes->indexOf(tab_8), QApplication::translate("MainWindow", "Variation des param\303\250tres", 0));
         label_2->setText(QApplication::translate("MainWindow", "- Simulation du cours du sous-jacent dans le cadre du mod\303\250le de Levy (processus \303\240 sauts)", 0));
         label->setText(QApplication::translate("MainWindow", "- Simulation du cours du sous-jacent dans le cadre du mod\303\250le de Black-Scholes-Merton (mouvent brownien g\303\251om\303\251trique)", 0));
-        PB->setText(QApplication::translate("MainWindow", "Ajouter une autre simulation de cours (mouvement brownien g\303\251om\303\251trique)", 0));
         PL->setText(QApplication::translate("MainWindow", "Ajouter une autre simulation de cours (mod\303\250le de Levy)", 0));
-        Res->setTabText(Res->indexOf(tab_5), QApplication::translate("MainWindow", "Simulations de cours", 0));
-        label_3->setText(QApplication::translate("MainWindow", "- Pay-Off selon le Spot Price dans le cadre du mod\303\250le de Black-Scholes-Merton (mouvent brownien g\303\251om\303\251trique)", 0));
+        NetSimuL->setText(QApplication::translate("MainWindow", "Revenir \303\240 une simulation", 0));
+        PB->setText(QApplication::translate("MainWindow", "Ajouter une autre simulation de cours (mouvement brownien g\303\251om\303\251trique)", 0));
+        NetSimuB->setText(QApplication::translate("MainWindow", "Revenir \303\240 une simulation", 0));
+        Graphes->setTabText(Graphes->indexOf(tab_5), QApplication::translate("MainWindow", "Simulations de cours", 0));
         label_4->setText(QApplication::translate("MainWindow", "- Pay-Off selon le Spot Price dans le cadre du mod\303\250le de Levy (processus \303\240 sauts)", 0));
-        Res->setTabText(Res->indexOf(tab_6), QApplication::translate("MainWindow", "Graphes Pay-Off", 0));
+        label_3->setText(QApplication::translate("MainWindow", "- Pay-Off selon le Spot Price dans le cadre du mod\303\250le de Black-Scholes-Merton (mouvent brownien g\303\251om\303\251trique)", 0));
+        OKPO->setText(QApplication::translate("MainWindow", "Afficher", 0));
+        label_37->setText(QApplication::translate("MainWindow", "*Les pentes de ces courbes en le Spot ent\303\251e par l'utilisateur correspond au Delta.", 0));
+        Graphes->setTabText(Graphes->indexOf(tab_6), QApplication::translate("MainWindow", "Graphes Pay-Off", 0));
         textEdit->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -1571,7 +1690,7 @@ public:
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Pour toi Aymeric ;)</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -q"
                         "t-block-indent:0; text-indent:0px;\">Choix de faire des classes, flexibilit\303\251, temps de calculs... blablabla</p></body></html>", 0));
-        Res->setTabText(Res->indexOf(tab_7), QApplication::translate("MainWindow", "Aide", 0));
+        Graphes->setTabText(Graphes->indexOf(tab_7), QApplication::translate("MainWindow", "Aide", 0));
     } // retranslateUi
 
 };

@@ -33,7 +33,8 @@ HEADERS  += \
     StatGatherer.h \
     Greeks.h \
     qcustomplot.h \
-    Deriv.h
+    Deriv.h \
+    FunVect.h
 
 FORMS    += mainwindow.ui
 

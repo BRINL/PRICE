@@ -43,6 +43,12 @@ public slots:
   int edt();
   void update2();
   void update3();
+  void update4();
+  void CleanB();
+  void CleanL();
+  void VarP();
+
+
 
 private:
   Ui::MainWindow *ui;

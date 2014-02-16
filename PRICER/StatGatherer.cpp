@@ -55,13 +55,12 @@ QVector<double> StatGatherer :: GPO()
 QVector<double> StatGatherer :: GPOT()
 {
     QVector<double> GPO(m_taille);
-    MC maMC;
     double pas=m_fin/m_taille;
     double axe(0);
     for (int i=0;i<m_taille;++i)
     {
-        axe+=pas;
         GPO[i]=m_MonOption.getPayOffgT(axe);
+        axe+=pas;
     }
     return GPO;
 }

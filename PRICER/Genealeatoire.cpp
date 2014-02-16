@@ -11,6 +11,52 @@
 
 using namespace std;
 
+
+//Constructeur:
+Random::Random() : i(0)
+{};
+
+//Classe mère:
+
+double Random::uRand()
+  {
+     return (rand()/static_cast<double>(RAND_MAX));
+ }
+
+
+double Random::GNormale()
+    {
+            double result=0;
+            for (unsigned long j=0; j < 12; j++)
+            result += rand()/static_cast<double>(RAND_MAX);
+            result -= 6.0;
+            return result;
+
+    }
+
+double Random::GLogNormale(double m, double vega2)
+{
+      Random loi;
+      double normal=sqrt(vega2)*loi.GNormale()+m;
+      double lognormal=exp(normal);
+      return lognormal;
+}
+
+        double Random::GPoisson(double lambda)
+{
+    double L=exp(-lambda);
+    double p(1);
+    int k(1);
+    Random Uniforme;
+    while (p>L)
+    {
+        p=p*Uniforme.uRand();
+        k+=1;
+    }
+    return (k-1);
+}
+
+/*
 ////////////////////////////////// UNIFORME (0,1) //////////////////////////////////////
 
 double uRand()
@@ -57,3 +103,4 @@ int gPoisson(double lambda)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+*/

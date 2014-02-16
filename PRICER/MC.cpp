@@ -1,13 +1,14 @@
 #include "MC.h"
 #include <QVector>
 #include "Option.h"
+using namespace std;
 
 MC::MC() : i(0)
 {   
 }
 
 
-QVector <double> MC::PrixA(unsigned long NumberOfPaths, Option& Simu)
+QVector <double> MC::PrixA(unsigned long NumberOfPaths, Option& Option)
 {
     QVector <double> PrixAV(NumberOfPaths);
     double runningSum(0);
@@ -15,15 +16,15 @@ QVector <double> MC::PrixA(unsigned long NumberOfPaths, Option& Simu)
     while (i<NumberOfPaths-1)
  {
      i+=1;
-     runningSum+=Simu.getPayOff(Simu);
-     PrixAV[i]=(runningSum/i)*exp(-Simu.getExpiry()*Simu.getr());
+     runningSum+=0.5*(Option.getPayOff(Option)[0]+Option.getPayOff(Option)[1]);
+     PrixAV[i]=(runningSum/i)*exp(-Option.getExpiry()*Option.getr());
  }
     return PrixAV;
  }
 
 
 
-double MC::PrixT(int secondes, Option& Simu)
+double MC::PrixT(int secondes, Option& Option)
 {
     time_t tbegin,tend;
     unsigned long k=0;
@@ -34,10 +35,10 @@ double MC::PrixT(int secondes, Option& Simu)
     {
         tend=time(NULL);                // Date de fin
         k+=1;
-        runningSum+=Simu.getPayOff(Simu);
+        runningSum+=0.5*(Option.getPayOff(Option)[0]+Option.getPayOff(Option)[1]);
         texec=difftime(tend,tbegin); // tend-tbegin (resultat en secondes)
     }
-    double resultat=(runningSum/k)*exp(-Simu.getExpiry()*Simu.getr());
+    double resultat=(runningSum/k)*exp(-Option.getExpiry()*Option.getr());
     return resultat;
 }
 

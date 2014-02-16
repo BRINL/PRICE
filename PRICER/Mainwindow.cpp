@@ -20,7 +20,7 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
 
   QMainWindow(parent),
-  ui(new Ui::MainWindow),  prec(200), Spot(0), Strike(0), Expiry(0), Vol(0), r(0), lambda(0), m(0), vega2(0), StopMCType(10), NumberOfPaths(0), secondes(0), PO(0), TypeOption(0)
+  ui(new Ui::MainWindow),  prec(200), Spot(0), Strike(0), Expiry(0), Vol(0), r(0), lambda(0), m(0), vega2(0), StopMCType(0), NumberOfPaths(0), secondes(0), PO(0), TypeOption(1)
   {
   ui->setupUi(this);
   QWidget::setUpdatesEnabled(true);
@@ -29,6 +29,12 @@ MainWindow::MainWindow(QWidget *parent) :
 // Connextion des boutons //
 connect(ui->OK, SIGNAL(clicked()), this, SLOT(update2()));
 connect(ui->Greeks, SIGNAL(clicked()), this, SLOT(update3()));
+connect(ui->OKPO, SIGNAL(clicked()), this, SLOT(update4()));
+connect(ui->NetSimuB, SIGNAL(clicked()), this, SLOT(CleanB()));
+connect(ui->NetSimuL, SIGNAL(clicked()), this, SLOT(CleanL()));
+
+connect(ui->OKVarP, SIGNAL(clicked()), this, SLOT(VarP()));
+
 
 connect(ui->PB, SIGNAL(clicked()), this, SLOT(AddSimuB()));
 connect(ui->PL, SIGNAL(clicked()), this, SLOT(AddSimuL()));
@@ -88,7 +94,7 @@ double  MainWindow::edvega2()
 
 bool  MainWindow::edMCStop()
 {
-    bool oun = ui->eite->isChecked();
+    bool oun = ui->et->isChecked();
     return oun;
 }
 
@@ -121,6 +127,8 @@ void  MainWindow::update2()
     m=edm();
     vega2=edvega2();
     if (edMCStop()==false)
+        StopMCType=0;
+    else if (edMCStop()==true)
         StopMCType=1;
     if (edPOC()==true)
         TypeOption=1;
@@ -154,8 +162,6 @@ void  MainWindow::update2()
     ui->ThetaL->setText("-");
     SetupPlotSimuB();
     SetupPlotSimuL();
-    SetupPlotPayOffB();
-    SetupPlotPayOffL();
     SetupPrices();
 
 
@@ -166,6 +172,26 @@ void  MainWindow::update2()
 void  MainWindow::update3()
 {
 Greeksc();
+}
+
+void  MainWindow::update4()
+{
+    SetupPlotPayOffB();
+    SetupPlotPayOffL();
+}
+
+void  MainWindow::CleanB()
+{
+    ui->Plot_SimuB->clearGraphs();
+    SetupPlotSimuB();
+
+}
+
+void  MainWindow::CleanL()
+{
+    ui->Plot_SimuL->clearGraphs();
+    SetupPlotSimuL();
+
 }
 
 
@@ -248,7 +274,7 @@ void MainWindow::SetupPlotSimuL()
 
 void MainWindow::SetupPlotPayOffB()
 {
-
+prec=25;
 PayOff* PO;
 if (TypeOption==1)
 {
@@ -289,15 +315,17 @@ ui->Plot_PayOffB->graph()->setPen(graphPen);
 // Vecteurs du graphe //
 
    StatGatherer GraphePO(pSimuB, prec, 2*Strike);
-   QVector<double> x=GraphePO.Axis();
+   StatGatherer GraphePOT(pSimuB, 100, 2*Strike);
+   QVector<double> x1=GraphePO.Axis();
    QVector<double> y=GraphePO.GPO();
-   QVector<double> z=GraphePO.GPOT();
+   QVector<double> x2=GraphePOT.Axis();
+   QVector<double> z=GraphePOT.GPOT();
 
 // Graphes //
 
-   ui->Plot_PayOffB->graph(0)->setData(x, y);
+   ui->Plot_PayOffB->graph(0)->setData(x1, y);
    ui->Plot_PayOffB->graph(0)->setName("Prix aujourd'hui");
-   ui->Plot_PayOffB->graph(1)->setData(x, z);
+   ui->Plot_PayOffB->graph(1)->setData(x2, z);
    ui->Plot_PayOffB->graph(1)->setName("Prix à la maturité");
    ui->Plot_PayOffB->axisRect()->setupFullAxesBox(true);
    ui->Plot_PayOffB->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
@@ -309,7 +337,7 @@ ui->Plot_PayOffB->graph()->setPen(graphPen);
 
 void MainWindow::SetupPlotPayOffL()
 {
-
+prec=25;
 PayOff* PO;
 if (TypeOption==1)
 {
@@ -351,15 +379,17 @@ ui->Plot_PayOffL->graph()->setPen(graphPen);
     // Vecteurs du graphe //
 
 StatGatherer GraphePO(pSimuL, prec, 2*Strike);
-QVector<double> x=GraphePO.Axis();
+StatGatherer GraphePOT(pSimuL, 100, 2*Strike);
+QVector<double> x1=GraphePO.Axis();
 QVector<double> y=GraphePO.GPO();
-QVector<double> z=GraphePO.GPOT();//gPayOT(pSimuL,*PO, prec, Strike);
+QVector<double> x2=GraphePOT.Axis();
+QVector<double> z=GraphePOT.GPOT();//gPayOT(pSimuL,*PO, prec, Strike);
 
     // Graphes //
 
-ui->Plot_PayOffL->graph(0)->setData(x, y);
+ui->Plot_PayOffL->graph(0)->setData(x1, y);
 ui->Plot_PayOffL->graph(0)->setName("Prix aujourd'hui");
-ui->Plot_PayOffL->graph(1)->setData(x, z);
+ui->Plot_PayOffL->graph(1)->setData(x2, z);
 ui->Plot_PayOffL->graph(1)->setName("Prix à la maturité");
 ui->Plot_PayOffL->axisRect()->setupFullAxesBox(true);
 ui->Plot_PayOffL->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
@@ -584,7 +614,6 @@ OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
 StatGatherer SimuL(pSimuL,prec,Expiry);
 QVector<double> x=SimuL.Axis();
 QVector<double> y=SimuL.SimuCoursB();
-
 ui->Plot_SimuL->addGraph();
 ui->Plot_SimuL->graph()->setBrush(QBrush(QColor(225, 102, 102, 40)));
 ui->Plot_SimuL->graph()->setData(x, y);
@@ -592,4 +621,112 @@ QPen graphPen;
 graphPen.setColor(QColor(rand()%245+10, rand()%245+10, rand()%245+10));
 ui->Plot_SimuL->graph()->setPen(graphPen);
 ui->Plot_SimuL->replot();
+}
+
+
+
+void MainWindow::VarP()
+{
+
+    PayOff* PO;
+    if (TypeOption==1)
+    {
+    PO = new PayOffCall(Strike);
+    }
+    else
+    {
+    PO = new PayOffPut(Strike);
+    };
+
+OptionL pSimuL(Strike, Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
+OptionB pSimuB(Strike, Expiry, Spot, Vol, r, *PO);
+
+// Setup des caractéristiques du graphe //
+MC maMC;
+double centrey=0.5*(maMC.PrixAc(500,pSimuB,Spot,Expiry,r,Vol)+maMC.PrixAc(500,pSimuL,Spot,Expiry,r,Vol));
+double debut(0);
+double fin(0);
+double ecart(1);
+QString xname("-");
+QString yname("-");
+Vegac VegaB(pSimuB, 200000);
+Vegac VegaL(pSimuL, 200000);
+Thetac ThetaB(pSimuB, 200000);
+Thetac ThetaL(pSimuL, 200000);
+Rhoc RhoB(pSimuB, 200000);
+Rhoc RhoL(pSimuL, 200000);
+QVector<double> x1;
+QVector<double> x2;
+QVector<double> y;
+QVector<double> z;
+
+if (ui->VarT->isChecked())
+{
+debut=0;
+fin=Expiry;
+ecart=3*centrey;
+xname="Maturité de l'option (en année(s))";
+yname="Prix de l'option";
+x1=TfuncAxis(debut, fin, 20, ThetaB);
+x2=TfuncAxis(debut, fin, 20, ThetaL);
+y=Tfunc(debut,fin,20,ThetaB);
+z=Tfunc(debut,fin,20,ThetaL);
+}
+
+else if (ui->Varr->isChecked())
+{
+debut=0;
+fin=r*5;
+ecart=3*centrey;
+xname="Taux sans risque (en %)";
+yname="Prix de l'option";
+x1=TfuncAxis(debut, fin, 20, RhoB);
+x2=TfuncAxis(debut, fin, 20, RhoL);
+y=Tfunc(debut,fin,20,RhoB);
+z=Tfunc(debut,fin,20,RhoL);
+}
+else if (ui->VarVol->isChecked())
+{
+debut=0;
+fin=5*Vol;
+ecart=3*centrey;
+xname="Volatilité du sous-jacent (en %)";
+yname="Prix de l'option";
+x1=TfuncAxis(debut, fin, 20, VegaB);
+x2=TfuncAxis(debut, fin, 20, VegaL);
+y=Tfunc(debut,fin,20,VegaB);
+z=Tfunc(debut,fin,20,VegaL);
+}
+
+  ui->VarPar->legend->setVisible(true);
+  ui->VarPar->clearGraphs();
+  QFont legendFont = font();
+  legendFont.setPointSize(10);
+  ui->VarPar->legend->setFont(legendFont);
+  ui->VarPar->legend->setSelectedFont(legendFont);
+  ui->VarPar->legend->setSelectableParts(QCPLegend::spItems);
+
+  ui->VarPar->xAxis->setRange(debut, fin-(fin-debut)/20, Qt::AlignLeft);
+  ui->VarPar->yAxis->setRange(centrey*1.5, ecart, Qt::AlignCenter);
+  ui->VarPar->xAxis->setLabel(xname);
+  ui->VarPar->yAxis->setLabel(yname);
+  ui->VarPar->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
+                                   QCP::iSelectLegend | QCP::iSelectPlottables);
+  ui->VarPar->addGraph();
+  ui->VarPar->graph()->setPen(QPen(Qt::blue));
+  ui->VarPar->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
+  ui->VarPar->graph(0)->setData(x1, y);
+  ui->VarPar->graph(0)->setName("Modèle Brownien");
+
+  ui->VarPar->addGraph();
+  ui->VarPar->graph()->setPen(QPen(Qt::red));
+  ui->VarPar->graph()->setBrush(QBrush(QColor(225, 102, 102, 40)));
+  ui->VarPar->graph(1)->setData(x2, z);
+  ui->VarPar->graph(1)->setName("Modèle de Levy");
+
+
+  ui->VarPar->axisRect()->setupFullAxesBox(true);
+  ui->VarPar->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+  ui->VarPar->replot();
+
 }

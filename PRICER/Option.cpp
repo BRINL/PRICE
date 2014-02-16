@@ -3,6 +3,7 @@
 #include "Genealeatoire.h"
 #include <cstdlib>
 #include <cmath>
+#include "FunVect.h"
 
 using namespace std;
 
@@ -21,9 +22,10 @@ double Option::getExpiry() const
     return 0;
 }
 
-double Option::getPayOff(Option& Option) const
+QVector <double> Option::getPayOff(Option& Option) const
 {
-    return 0;
+    QVector<double> A(2);
+    return A;
 }
 
 double Option::getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const
@@ -67,11 +69,12 @@ OptionB::~OptionB()
 }
 
 
-double OptionB::operator()(double Spot) const
+QVector <double> OptionB::operator()(double Spot) const
 {
-    double SpotTB(1);
-    double thisGaussian = gNormale();
-    SpotTB=m_movedSpot*exp(Rootvariance*thisGaussian);
+    QVector <double> SpotTB(2);
+    Random loi;
+    SpotTB[0]=m_movedSpot*exp(Rootvariance*loi.GNormale());
+    SpotTB[1]=m_movedSpot*exp(-Rootvariance*loi.GNormale());
     return SpotTB;
 }
 
@@ -84,8 +87,8 @@ double OptionB::Simu(double Spot, double Expiry, double r, double sigma) const
     double RootvarianceSB(sqrt(varianceSB));
     double demivarSB(-0.5*varianceSB);
     double movedSpot(Spot*exp(r*Expiry+demivarSB));
-    double thisGaussian = gNormale();
-    double SimuBr = movedSpot*exp(RootvarianceSB*thisGaussian);
+    Random loi;
+    double SimuBr = movedSpot*exp(RootvarianceSB*loi.GNormale());
     return SimuBr;
 }
 
@@ -111,9 +114,9 @@ double OptionB::getSigma() const
     return m_Vol;
 }
 
-double OptionB::getPayOff(Option& Option) const
+QVector <double> OptionB::getPayOff(Option& Option) const
 {
-    return m_thePayOff(Option(m_Spot));
+    return FVect(Option(m_Spot), m_thePayOff);
 }
 
 double OptionB::getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const
@@ -135,19 +138,20 @@ OptionL ::OptionL(double Strike, double Expiry, double Spot, double Vol, double 
 {
 }
 
-double OptionL::operator()(double Spot) const
+QVector <double> OptionL::operator()(double Spot) const
 {
     double T(1);
-    double thisGaussian = gNormale();
-    int N=gPoisson(m_lambda*m_Expiry);
-    double SpotTL(Spot);
+    Random loi;
+    int N=loi.GPoisson(m_lambda*m_Expiry);
+    QVector <double> SpotTL(2);
     if (N>1)
     {
     for (int i=1; i<N; i++)
     {
-        T=T*(gLogNormale(m_m, m_vega2));
+        T=T*(loi.GLogNormale(m_m, m_vega2));
     }
-    SpotTL=m_movedSpot*exp(Rootvariance*thisGaussian)*T;
+    SpotTL[0]=m_movedSpot*exp(Rootvariance*loi.GNormale())*T;
+    SpotTL[1]=m_movedSpot*exp(-Rootvariance*loi.GNormale())*T;
     }
 
     return SpotTL;
@@ -159,14 +163,14 @@ double OptionL::Simu(double Spot, double Expiry, double r, double sigma) const
     double RootvarianceSL(sqrt(varianceSL));
     double demivarSL(-0.5*varianceSL);
     double movedSpot(Spot*exp(r*Expiry+demivarSL));
-    double thisGaussian = gNormale();
-    double SimuTL = movedSpot*exp(RootvarianceSL*thisGaussian);
+    Random loi;
+    double SimuTL = movedSpot*exp(RootvarianceSL*loi.GNormale());
     double T(1);
-    int N=gPoisson(m_lambda*Expiry);
+    int N=loi.GPoisson(m_lambda*Expiry);
     if (N>1)
     for (int i=1;i<N;i++)
-        T=T*(gLogNormale(m_m, m_vega2));
-        SimuTL=movedSpot*exp(RootvarianceSL*thisGaussian)*T;
+        T=T*(loi.GLogNormale(m_m, m_vega2));
+        SimuTL=movedSpot*exp(RootvarianceSL*loi.GNormale())*T;
     return SimuTL;
 }
 
@@ -192,9 +196,9 @@ double OptionL::getSigma() const
     return m_Vol;
 }
 
-double OptionL::getPayOff(Option& Option) const
+QVector <double> OptionL::getPayOff(Option& Option) const
 {
-    return m_thePayOff(Option(m_Spot));
+    return FVect(Option(m_Spot), m_thePayOff);
 }
 
 double OptionL::getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const
