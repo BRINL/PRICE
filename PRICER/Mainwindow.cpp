@@ -38,7 +38,7 @@ connect(ui->OKVarP, SIGNAL(clicked()), this, SLOT(VarP()));
 
 connect(ui->PB, SIGNAL(clicked()), this, SLOT(AddSimuB()));
 connect(ui->PL, SIGNAL(clicked()), this, SLOT(AddSimuL()));
-
+connect(ui->OKVolImp, SIGNAL(clicked()), this, SLOT(Volimp()));
 
 }
 
@@ -163,9 +163,11 @@ void  MainWindow::update2()
     SetupPlotSimuB();
     SetupPlotSimuL();
     SetupPrices();
-
-
-
+/*
+QString a=ui->TestTab->itemAt(1,1)->text();
+double c=a.toDouble();
+cout << c << endl;
+*/
 }
 
 
@@ -274,7 +276,7 @@ void MainWindow::SetupPlotSimuL()
 
 void MainWindow::SetupPlotPayOffB()
 {
-prec=25;
+double precPO=25;
 PayOff* PO;
 if (TypeOption==1)
 {
@@ -314,7 +316,7 @@ ui->Plot_PayOffB->graph()->setPen(graphPen);
 
 // Vecteurs du graphe //
 
-   StatGatherer GraphePO(pSimuB, prec, 2*Strike);
+   StatGatherer GraphePO(pSimuB, precPO, 2*Strike);
    StatGatherer GraphePOT(pSimuB, 100, 2*Strike);
    QVector<double> x1=GraphePO.Axis();
    QVector<double> y=GraphePO.GPO();
@@ -337,7 +339,7 @@ ui->Plot_PayOffB->graph()->setPen(graphPen);
 
 void MainWindow::SetupPlotPayOffL()
 {
-prec=25;
+double precPO=25;
 PayOff* PO;
 if (TypeOption==1)
 {
@@ -378,7 +380,7 @@ ui->Plot_PayOffL->graph()->setPen(graphPen);
 
     // Vecteurs du graphe //
 
-StatGatherer GraphePO(pSimuL, prec, 2*Strike);
+StatGatherer GraphePO(pSimuL, precPO, 2*Strike);
 StatGatherer GraphePOT(pSimuL, 100, 2*Strike);
 QVector<double> x1=GraphePO.Axis();
 QVector<double> y=GraphePO.GPO();
@@ -728,5 +730,94 @@ z=Tfunc(debut,fin,20,VegaL);
   ui->VarPar->axisRect()->setupFullAxesBox(true);
   ui->VarPar->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
   ui->VarPar->replot();
+
+}
+
+
+void MainWindow::Volimp()
+{
+
+
+QVector <double> StrikeI(0);
+QVector <double> PrixI(0);
+QVector <double> VolIB(0);
+QVector <double> VolIL(0);
+for (int i(0);i<25;i++)
+{
+QString a=ui->TestTab->item(i,0)->text();
+QString b=ui->TestTab->item(i,1)->text();
+if (a.toDouble()>0 && b.toDouble()>0)
+{
+StrikeI.push_back(1);
+PrixI.push_back(1);
+VolIB.push_back(1);
+VolIL.push_back(1);
+
+
+StrikeI[i]=a.toDouble();
+PrixI[i]=b.toDouble();
+
+PayOff* PO;
+if (TypeOption==1)
+{
+PO = new PayOffCall(StrikeI[i]);
+}
+else
+{
+PO = new PayOffPut(StrikeI[i]);
+};
+
+OptionB pSimuB(StrikeI[i], Expiry, Spot, Vol, r, *PO);
+OptionL pSimuL(StrikeI[i], Expiry, Spot, Vol, r, lambda, m, vega2, *PO);
+Vegac VegafL(pSimuL, 10000);
+Vegac VegafB(pSimuB,10000);
+
+VolIB[i]=Root(0,1,0.01,PrixI[i],VegafB);
+VolIL[i]=Root(0,1,0.01,PrixI[i],VegafL);
+if (VolIB[i]>0.01)
+{QString c=QString::number(VolIB[i]);
+ui->TestTab->item(i,2)->setText(c);}
+else if (VolIB[i]<0.01)
+ui->TestTab->item(i,2)->setText("Prix trop bas");
+
+if (VolIL[i]>0.01)
+{QString d=QString::number(VolIL[i]);
+ui->TestTab->item(i,3)->setText(d);}
+else if (VolIL[i]<0.01)
+ui->TestTab->item(i,3)->setText("Prix trop bas");
+
+
+}
+}
+double taille=-(StrikeI[0]-StrikeI[StrikeI.size()-1]);
+ui->Volimpg->legend->setVisible(true);
+ui->Volimpg->clearGraphs();
+QFont legendFont = font();
+legendFont.setPointSize(10);
+ui->Volimpg->legend->setFont(legendFont);
+ui->Volimpg->legend->setSelectedFont(legendFont);
+ui->Volimpg->legend->setSelectableParts(QCPLegend::spItems);
+
+ui->Volimpg->xAxis->setRange(StrikeI[0]+0.5*taille,taille, Qt::AlignCenter);
+ui->Volimpg->yAxis->setRange(0, 0.6, Qt::AlignLeft);
+ui->Volimpg->xAxis->setLabel("Strike");
+ui->Volimpg->yAxis->setLabel("Volatilité implicite (en %)");
+ui->Volimpg->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectLegend | QCP::iSelectPlottables);
+ui->Volimpg->addGraph();
+ui->Volimpg->graph()->setPen(QPen(Qt::blue));
+ui->Volimpg->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
+ui->Volimpg->graph(0)->setData(StrikeI, VolIB);
+ui->Volimpg->graph(0)->setName("Modèle Brownien");
+
+ui->Volimpg->addGraph();
+ui->Volimpg->graph()->setPen(QPen(Qt::red));
+ui->Volimpg->graph()->setBrush(QBrush(QColor(225, 102, 102, 40)));
+ui->Volimpg->graph(1)->setData(StrikeI, VolIL);
+ui->Volimpg->graph(1)->setName("Modèle de Levy");
+
+
+ui->Volimpg->axisRect()->setupFullAxesBox(true);
+ui->Volimpg->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+ui->Volimpg->replot();
 
 }

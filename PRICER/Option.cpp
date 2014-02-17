@@ -17,6 +17,11 @@ double Option::getSpot() const
 {
     return 0;
 }
+
+double Option::getStrike() const
+{
+    return 0;
+}
 double Option::getExpiry() const
 {
     return 0;
@@ -114,6 +119,11 @@ double OptionB::getSigma() const
     return m_Vol;
 }
 
+double OptionB::getStrike() const
+{
+    return m_Strike;
+}
+
 QVector <double> OptionB::getPayOff(Option& Option) const
 {
     return FVect(Option(m_Spot), m_thePayOff);
@@ -194,6 +204,11 @@ double OptionL::getr() const
 double OptionL::getSigma() const
 {
     return m_Vol;
+}
+
+double OptionL::getStrike() const
+{
+    return m_Strike;
 }
 
 QVector <double> OptionL::getPayOff(Option& Option) const

@@ -47,6 +47,7 @@ public slots:
   void CleanB();
   void CleanL();
   void VarP();
+  void Volimp();
 
 
 

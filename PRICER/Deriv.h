@@ -4,6 +4,7 @@
 #include "Greeks.h"
 #include <iostream>
 #include <QVector>
+#include <cmath>
 
 using namespace std;
 
@@ -51,6 +52,19 @@ for (int i(0); i<prec; i++)
     axe+=pas;
 }
 return A;
+}
+
+template<class Greeks>
+double Root(double a, double b, double prec, double Prix, Greeks& Function)
+{
+while (b-a>prec)
+{
+if (Function(a+0.5*(b-a))-Prix<0)
+    a=a+0.5*(b-a);
+else if (Function(a+0.5*(b-a))-Prix>0)
+    b=a+0.5*(b-a);
+}
+return b;
 }
 
 

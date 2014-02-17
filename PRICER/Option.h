@@ -20,10 +20,11 @@ class Option
     virtual double getSpot() const;
     virtual double getExpiry() const;
     virtual double getr() const;
-        virtual double getSigma() const;
+    virtual double getStrike() const;
+    virtual double getSigma() const;
     virtual double Simu(double Spot, double Expiry, double r, double sigma) const;
     virtual QVector <double> getPayOff(Option& Option) const ;
-            virtual double getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const ;
+    virtual double getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const ;
     virtual double getPayOffgT(double Spot) const ;
 
     protected :
@@ -44,6 +45,7 @@ class OptionB : public Option
             virtual double getSpot() const ;
             virtual double getExpiry() const ;
             virtual double getr() const ;
+            virtual double getStrike() const ;
             virtual double getSigma() const ;
             virtual QVector <double> getPayOff(Option& Option) const ;
             virtual double getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const ;
@@ -80,6 +82,7 @@ class OptionL : public Option
     virtual double getSpot() const ;
     virtual double getExpiry() const ;
     virtual double getr() const ;
+    virtual double getStrike() const ;
         virtual double getSigma() const ;
     virtual QVector <double> getPayOff(Option& Option) const ;
         virtual double getPayOffg(Option& Option, double Spot, double Expiry, double r, double sigma) const ;
