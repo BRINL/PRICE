@@ -220,17 +220,17 @@ public:
     QPushButton *OKVarP;
     QWidget *tab_5;
     QGridLayout *gridLayout;
-    QLabel *label_2;
-    QCustomPlot *Plot_SimuL;
-    QSpacerItem *horizontalSpacer;
-    QLabel *label;
     QCustomPlot *Plot_SimuB;
     QFrame *line_2;
+    QLabel *label;
+    QLabel *label_2;
     QFrame *line;
+    QCustomPlot *Plot_SimuL;
     QWidget *widget_18;
     QHBoxLayout *horizontalLayout_8;
     QPushButton *PL;
     QPushButton *NetSimuL;
+    QSpacerItem *horizontalSpacer;
     QWidget *widget_17;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *PB;
@@ -1307,35 +1307,11 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        label_2 = new QLabel(tab_5);
-        label_2->setObjectName(QStringLiteral("label_2"));
-
-        gridLayout->addWidget(label_2, 11, 0, 1, 1);
-
-        Plot_SimuL = new QCustomPlot(tab_5);
-        Plot_SimuL->setObjectName(QStringLiteral("Plot_SimuL"));
-        Plot_SimuL->setEnabled(true);
-        sizePolicy.setHeightForWidth(Plot_SimuL->sizePolicy().hasHeightForWidth());
-        Plot_SimuL->setSizePolicy(sizePolicy);
-        Plot_SimuL->setMinimumSize(QSize(300, 250));
-        Plot_SimuL->setMaximumSize(QSize(16777215, 16777215));
-
-        gridLayout->addWidget(Plot_SimuL, 13, 0, 1, 1);
-
-        horizontalSpacer = new QSpacerItem(40, 10, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 15, 0, 1, 1);
-
-        label = new QLabel(tab_5);
-        label->setObjectName(QStringLiteral("label"));
-
-        gridLayout->addWidget(label, 5, 0, 1, 1);
-
         Plot_SimuB = new QCustomPlot(tab_5);
         Plot_SimuB->setObjectName(QStringLiteral("Plot_SimuB"));
         sizePolicy.setHeightForWidth(Plot_SimuB->sizePolicy().hasHeightForWidth());
         Plot_SimuB->setSizePolicy(sizePolicy);
-        Plot_SimuB->setMinimumSize(QSize(300, 250));
+        Plot_SimuB->setMinimumSize(QSize(300, 227));
 
         gridLayout->addWidget(Plot_SimuB, 7, 0, 1, 1);
 
@@ -1346,12 +1322,32 @@ public:
 
         gridLayout->addWidget(line_2, 2, 0, 1, 1);
 
+        label = new QLabel(tab_5);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout->addWidget(label, 5, 0, 1, 1);
+
+        label_2 = new QLabel(tab_5);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout->addWidget(label_2, 11, 0, 1, 1);
+
         line = new QFrame(tab_5);
         line->setObjectName(QStringLiteral("line"));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
 
         gridLayout->addWidget(line, 9, 0, 1, 1);
+
+        Plot_SimuL = new QCustomPlot(tab_5);
+        Plot_SimuL->setObjectName(QStringLiteral("Plot_SimuL"));
+        Plot_SimuL->setEnabled(true);
+        sizePolicy.setHeightForWidth(Plot_SimuL->sizePolicy().hasHeightForWidth());
+        Plot_SimuL->setSizePolicy(sizePolicy);
+        Plot_SimuL->setMinimumSize(QSize(300, 250));
+        Plot_SimuL->setMaximumSize(QSize(16777215, 16777215));
+
+        gridLayout->addWidget(Plot_SimuL, 13, 0, 1, 1);
 
         widget_18 = new QWidget(tab_5);
         widget_18->setObjectName(QStringLiteral("widget_18"));
@@ -1372,6 +1368,10 @@ public:
 
 
         gridLayout->addWidget(widget_18, 8, 0, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(40, 10, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 15, 0, 1, 1);
 
         widget_17 = new QWidget(tab_5);
         widget_17->setObjectName(QStringLiteral("widget_17"));
@@ -1909,7 +1909,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        Graphes->setCurrentIndex(7);
+        Graphes->setCurrentIndex(8);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -2029,8 +2029,8 @@ public:
         label_36->setText(QApplication::translate("MainWindow", "*Les pentes de ces courbes en la valeur entr\303\251e par l'utilisateur correspondent respectivement \303\240 Theta, V\303\251ga, Rho.", 0));
         OKVarP->setText(QApplication::translate("MainWindow", "Afficher", 0));
         Graphes->setTabText(Graphes->indexOf(tab_8), QApplication::translate("MainWindow", "Variation des param\303\250tres", 0));
-        label_2->setText(QApplication::translate("MainWindow", "- Simulation du cours du sous-jacent dans le cadre du mod\303\250le de Levy (processus \303\240 sauts)", 0));
         label->setText(QApplication::translate("MainWindow", "- Simulation du cours du sous-jacent dans le cadre du mod\303\250le de Black-Scholes-Merton (mouvent brownien g\303\251om\303\251trique)", 0));
+        label_2->setText(QApplication::translate("MainWindow", "- Simulation du cours du sous-jacent dans le cadre du mod\303\250le de Levy (processus \303\240 sauts)", 0));
         PL->setText(QApplication::translate("MainWindow", "Ajouter une autre simulation de cours (mod\303\250le de Levy)", 0));
         NetSimuL->setText(QApplication::translate("MainWindow", "Revenir \303\240 une simulation", 0));
         PB->setText(QApplication::translate("MainWindow", "Ajouter une autre simulation de cours (mouvement brownien g\303\251om\303\251trique)", 0));
@@ -2157,84 +2157,84 @@ public:
                         "px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	But du programme :</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Ce petit programme est avant tout <span style=\" font-weight:600;\">p\303\251dagogique</span>. Le but est de comparer les r\303\251sultats obtenus quand on change les <span style=\" font-weight:600;\">hypoth\303\250ses sur l'\303\251volution du cours du sous-jacents</span> de notre option. Le premier mod\303\250le est celui <span style=\" font-weight:600;\">Black-Schole"
-                        "s-Merton</span> qui suppose que les rendements sont lognormaux.</p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Le deuxi\303\250me s'interesse \303\240 un mod\303\250le plus r\303\251cent, dit <span style=\" font-weight:600;\">mod\303\250le \303\240 sauts</span>, qui en partant du mod\303\250le de Black-Scholes-Merton suppose que sur un intervalle de temps T, un certain nombres de sauts se produisent sur les march\303\251s (nombre de sauts mod\303\251lis\303\251 par une loi de Poisson de param\303\250tre lambda dans notre cas). Chaque saut ayant une intensit\303\251 al\303\251atoire suivant une loi lognormale de param\303\250tre m et vega2. </p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Ce petit programme est avant tout <span style=\" font-weight:600;\">p\303\251dagogique</span>. Le but est de comparer les r\303\251sultats obtenus quand on change les <span style=\" font-weight:600;\">hypoth\303\250ses sur l'\303\251volution du cours du sous-jacent</span> de notre option. Le premier mod\303\250le est celui <span style=\" font-weight:600;\">Black-Scholes"
+                        "-Merton</span> qui suppose que les rendements sont lognormaux.</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Le deuxi\303\250me s'interesse \303\240 un mod\303\250le plus r\303\251cent, dit <span style=\" font-weight:600;\">mod\303\250le \303\240 sauts</span>, qui en partant du mod\303\250le de Black-Scholes-Merton suppose que sur un intervalle de temps T, un certain nombre de sauts se produisent sur les march\303\251s (nombre de sauts mod\303\251lis\303\251 par une loi de Poisson de param\303\250tre lambda dans notre cas). Chaque saut ayant une intensit\303\251 al\303\251atoire suivant une loi lognormale de param\303\250tre m et vega2. </p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-bloc"
-                        "k-indent:0; text-indent:0px;\"><img src=\":/Brownien.png\" /></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-"
+                        "indent:0; text-indent:0px;\"><img src=\":/Brownien.png\" /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Figure 1 - Formule de St, prix Spot en t, dans le cadre du Mod\303\250le de Black-Scholes-Merton. Wt repr\303\251sente le mouvement Brownien.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\":/Levy.png\" /></p>\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Figure 2 - Formul"
-                        "e de St, prix Spot en t, dans le cadre d'un mod\303\250le \303\240 saut comme celui \303\251tudi\303\251 dans le programme. Wt repr\303\251sente le mouvement Brownien. Nt, une loi de Poisson de param\303\250tre lambda et 1+Uj suivant une loi lognormale de param\303\250tre m et vega2.</p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Figure 2 - Formule "
+                        "de St, prix Spot en t, dans le cadre d'un mod\303\250le \303\240 saut comme celui \303\251tudi\303\251 dans le programme. Wt repr\303\251sente le mouvement Brownien. Nt, une loi de Poisson de param\303\250tre lambda et 1+Uj suivant une loi lognormale de param\303\250tre m et vega2.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px;"
-                        " margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; m"
+                        "argin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	Pr\303\251cision sur le fonctionnement du programme :</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     L'arret de la m\303\251thode de Monte-Carlo selon un nombre de secondes entr\303\251 par l'utilisateur, ne s'applique qu'\303\240 l'\303\251tablissement du prix de votre options. Les graphes de convergences, calculs des grecques, et graphe de Pay-Off sont calcul\303\251s avec des Monte-Carlo du nombre d'it\303\251rations choisi par l'utilisateur ou d'un million d'it\303\251"
-                        "rations lorsqu'il choisit un temps. </p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     <span style=\" font-weight:600;\">Aucun des r\303\251sultats ne provient de formules ferm\303\251es</span>, ces derni\303\250res existent pour le premier mod\303\250le mais pas pour le second. Le recours aux m\303\251thodes de Monte-Carlo permet d'estimer tous les indicateurs classiques <span style=\" font-weight:600;\">quelque soit le mod\303\250le utilis\303\251</span> (dans notre cas, tous les indicateurs dans le cas du mod\303\250le \303\240 sauts ne poss\303\250de pas une formule ferm\303\251e) et ainsi de pousser la comparaison au maximum.</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     L'arr\303\252t de la m\303\251thode de Monte-Carlo selon un nombre de secondes entr\303\251 par l'utilisateur, ne s'applique qu'\303\240 l'\303\251tablissement du prix de votre option. Les graphes de convergence, calculs des grecques, et graphes de Pay-Off sont calcul\303\251s avec des Monte-Carlo arr\303\252t\303\251es apr\303\250s nombre d'it\303\251rations choisi par l'"
+                        "utilisateur ou apr\303\250s un million d'it\303\251rations lorsqu'il choisit un temps d'arr\303\252t. </p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     <span style=\" font-weight:600;\">Aucun des r\303\251sultats ne provient de formules ferm\303\251es</span>, ces derni\303\250res existent pour le premier mod\303\250le mais pas pour le second. Le recours aux m\303\251thodes de Monte-Carlo permet d'estimer tous les indicateurs classiques <span style=\" font-weight:600;\">quelque soit le mod\303\250le utilis\303\251</span> (dans notre cas, tous les indicateurs classique ne poss\303\250de pas une formule ferm\303\251e pour le mod\303\250le de Levy) et ainsi de pousser la comparaison au maximum.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0"
-                        "px;\"><span style=\" font-size:18pt; font-weight:600;\">	Les hypoth\303\250ses :</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin"
+                        "-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	Les hypoth\303\250ses :</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     <span style=\" font-size:14pt; font-weight:600;\">Chiffr\303\251es : </span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">Spot price :</span> le prix actuel du sous-jacents,</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">Spot price :</span> le prix actuel du sous-jacent,</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">Strike price :</span> le prix d'exercice, </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-lef"
-                        "t:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">La maturit\303\251 (Expiry) :</span> elle est a entr\303\251 en ann\303\251e,</p>\n"
+""
+                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">La maturit\303\251 (Expiry) :</span> elle est \303\240 entrer en ann\303\251e(s),</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">La volatilit\303\251 :</span> en % annualis\303\251, propre au sous-jacent, </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">Lambda :</span> le param\303\250tre de la loi de Poisson qui simule le nombre de saut sur une p\303\251riode T=1, soit une ann\303\251e. On pr\303\251cise qu'une loi de Poisson ayant pour esp\303\251rance son param\303\250tre lambda, lambda correspond au nombre de sauts / krachs moyen que l'on pense observ\303\251 sur une ann\303\251e.</p>\n"
-"<p style=\" margin-top:0px; mar"
-                        "gin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">m :</span> valeur moyenne du saut le jour d'un krach (en %),</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">Lambda :</span> le param\303\250tre de la loi de Poisson qui simule le nombre de sauts sur une p\303\251riode T=1, soit une ann\303\251e. On pr\303\251cise qu'une loi de Poisson ayant pour esp\303\251rance son param\303\250tre lambda, lambda correspond au nombre de sauts / krachs moyen que l'on pense observer sur u"
+                        "ne ann\303\251e.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">m :</span> valeur moyenne du saut le jour d'un krach (en %),</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">          - <span style=\" text-decoration: underline;\">vega2 :</span> variance de la valeur du saut en % le jour d'un krach.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     <span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Autres : </span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - <span style=\" text-decoration: und"
-                        "erline;\">Option europ\303\251ennes :</span> exer\303\247able uniquement \303\240 maturit\303\251.</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - <span style=\" text-decoration: underline;\">Option asiatique :</span> option &quot;path-d\303\251pendent&quot;, c'est \303\240 dire dont le pay-off est d\303\251duit de la trajectoire du cours du sous-jacent, en l'occurrence, le pay-off est le r\303\251sultat de la moyenne (arithm\303\251tique ou g\303\251om\303\251trique) des pay-off th\303\251orique en tout t.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+                        "indent:0px;\">     - <span style=\" text-decoration: underline;\">Option europ\303\251enne :</span> exer\303\247able uniquement \303\240 maturit\303\251.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - <span style=\" text-decoration: underline;\">Option asiatique :</span> option &quot;path-d\303\251pendent&quot;, c'est \303\240 dire dont le pay-off est d\303\251duit de la trajectoire du cours du sous-jacent, en l'occurrence, le pay-off est le r\303\251sultat de la moyenne (arithm\303\251tique ou g\303\251om\303\251trique) des pay-offs th\303\251oriques en tout t.</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - <span style=\" text-decoration: underline;\">Put/Call :</span> respectivement droit de vendre/acheter un sous-jacent.</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - <span style=\" text-decoration: un"
-                        "derline;\">Arr\303\252t de la Monte-Carlo :</span> (pour le calcul du prix uniquement) soit le nombre d'it\303\251rations, soit un temps d'arr\303\252t en seconde.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; tex"
+                        "t-indent:0px;\">     - <span style=\" text-decoration: underline;\">Arr\303\252t de la Monte-Carlo :</span> (pour le calcul du prix uniquement) soit le nombre d'it\303\251rations, soit un temps d'arr\303\252t en seconde(s).</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	R\303\251sultats : </span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - On y trouve <span style=\" font-weight:600;\">les deux prix</span> (des deux mod\303\250les). </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0"
-                        "px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - Y est \303\251galement pr\303\251cis\303\251 <span style=\" font-weight:600;\">une borne sup\303\251rieure de l'\303\251cart-type</span> empirique pour donner \303\240 l'utilisateur une id\303\251e de la pr\303\251cision du calcul. </p>\n"
+""
+                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - Y est \303\251galement pr\303\251cis\303\251 <span style=\" font-weight:600;\">une borne sup\303\251rieure de l'\303\251cart-type</span> empirique pour donner \303\240 l'utilisateur une id\303\251e de la pr\303\251cision du calcul. </p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	Graphe de convergence : </span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - Permet de juger <span"
-                        " style=\" font-style:italic;\">de visu</span> la <span style=\" font-weight:600;\">qualit\303\251 de notre estimation.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-blo"
+                        "ck-indent:0; text-indent:0px;\">     - Permet de juger <span style=\" font-style:italic;\">de visu</span> la <span style=\" font-weight:600;\">qualit\303\251 de notre estimation.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     - La graphique ne repr\303\251sente que l'\303\251volution du r\303\251sultat <span style=\" font-weight:600;\">sur au plus 1 000 000 d'observations </span>dans le cas d'un choix de temps d'arr\303\252t.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	Les grecques :</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
-""
-                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Pour toi Aymeric ;)</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; tex"
+                        "t-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Pour toi Aymeric ;)</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	Simulation de cours :</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Le but de cet onglet est purement p\303\251dagogique. Il a pour but de <span style=\" font-weight:600;\">&quot;voir&quot; la trajectoire type du cours de notre sous-jacent dans les "
-                        "deux mod\303\250les</span>, compte tenu du choix de param\303\250tre.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Le but de cet onglet est purement p\303\251dagogique. Il a pour but de <span style=\" font-weight:600;\">&quot;voir&q"
+                        "uot; la trajectoire type du cours de notre sous-jacent dans les deux mod\303\250les</span>, compte tenu du choix de param\303\250tre.</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	Graphe Pay-Off :</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Graphique repr\303\251sentant le prix de l'option en fonction du spot-price. Permet de distinguer clairement la <span style=\" font-weight:600;\">valeur intrins\303\250que de l'option </span>(la valeur que l'on r\303\251cup\303\250re \303\240 la fin pour un m\303"
-                        "\252me spot) et la <span style=\" font-weight:600;\">valeur temps de l'option </span>(diff\303\251rence entre la valeur de l'option et la valeur intrins\303\250que, correspond au prix du risque / prix du temps).</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Graphique repr\303\251sentant le prix de l'option en fonction du spot-price. Permet de distinguer clairement la <span style=\" font-weight:600;\">valeur intrins\303\250que de l'option </span>(la val"
+                        "eur que l'on r\303\251cup\303\250re \303\240 la fin pour un m\303\252me spot) et la <span style=\" font-weight:600;\">valeur temps de l'option </span>(diff\303\251rence entre la valeur de l'option et la valeur intrins\303\250que, correspond au prix du risque / prix du temps).</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600;\">	Structure du programme :</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">     Pour toi Aymeric ;)</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -q"
-                        "t-block-indent:0; text-indent:0px;\">Choix de faire des classes, flexibilit\303\251, temps de calculs... blablabla</p></body></html>", 0));
+"<p style=\" margin-"
+                        "top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Choix de faire des classes, flexibilit\303\251, temps de calculs... blablabla</p></body></html>", 0));
         Graphes->setTabText(Graphes->indexOf(tab_7), QApplication::translate("MainWindow", "Aide", 0));
     } // retranslateUi
 

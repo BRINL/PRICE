@@ -40,9 +40,11 @@ connect(ui->PB, SIGNAL(clicked()), this, SLOT(AddSimuB()));
 connect(ui->PL, SIGNAL(clicked()), this, SLOT(AddSimuL()));
 connect(ui->OKVolImp, SIGNAL(clicked()), this, SLOT(Volimp()));
 
+
 }
 
 ////////////////////////////////////// RECUPERATION DES DONNES DE L'UTILISATEUR ////////////////////////////
+
 
 double  MainWindow::edSpot()
 {
@@ -163,11 +165,7 @@ void  MainWindow::update2()
     SetupPlotSimuB();
     SetupPlotSimuL();
     SetupPrices();
-/*
-QString a=ui->TestTab->itemAt(1,1)->text();
-double c=a.toDouble();
-cout << c << endl;
-*/
+
 }
 
 
