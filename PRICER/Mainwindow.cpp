@@ -520,7 +520,7 @@ for (unsigned long i(0);i<NumberOfPaths-1;++i)
 {
     VarEmpBS+=(PrixBV[i]-PrixB)*(PrixBV[i]-PrixB);
 }
-double VarEmpB(VarEmpBS/(NumberOfPaths-1));
+double VarEmpB(VarEmpBS/((NumberOfPaths-1)*(NumberOfPaths-1)));
 ui->VarEmpB->setNum(sqrt(VarEmpB));
 
 
@@ -529,10 +529,8 @@ for (unsigned long i(0);i<NumberOfPaths-1;++i)
 {
     VarEmpLS+=(PrixLV[i]-PrixL)*(PrixLV[i]-PrixL);
 }
-double VarEmpL(VarEmpLS/(NumberOfPaths-1));
+double VarEmpL(VarEmpLS/((NumberOfPaths-1)*(NumberOfPaths-1)));
 ui->VarEmpL->setNum(sqrt(VarEmpL));
-
-
 }
 
 void MainWindow :: Greeksc()

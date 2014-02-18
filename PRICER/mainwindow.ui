@@ -65,7 +65,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -1935,6 +1935,16 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_22">
            <item>
+            <widget class="QLabel" name="label_41">
+             <property name="text">
+              <string>Entrer les couples (Strike, Prix du marché) dans l'ordre croissant des Strikes :</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QTableWidget" name="TestTab">
              <property name="maximumSize">
               <size>
@@ -2991,6 +3001,30 @@
             <widget class="QPushButton" name="OKVolImp">
              <property name="text">
               <string>Calculer la volatilité implicite</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_40">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Les valeurs par défaut sont cohérentes avec les hypothèses inscrites par défaut à l'ouverture du programme.</string>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
              </property>
             </widget>
            </item>

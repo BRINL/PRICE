@@ -249,8 +249,10 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QWidget *widget_20;
     QVBoxLayout *verticalLayout_22;
+    QLabel *label_41;
     QTableWidget *TestTab;
     QPushButton *OKVolImp;
+    QLabel *label_40;
     QCustomPlot *Volimpg;
     QWidget *tab_7;
     QVBoxLayout *verticalLayout_20;
@@ -1465,6 +1467,12 @@ public:
         verticalLayout_22->setSpacing(6);
         verticalLayout_22->setContentsMargins(11, 11, 11, 11);
         verticalLayout_22->setObjectName(QStringLiteral("verticalLayout_22"));
+        label_41 = new QLabel(widget_20);
+        label_41->setObjectName(QStringLiteral("label_41"));
+        label_41->setWordWrap(true);
+
+        verticalLayout_22->addWidget(label_41);
+
         TestTab = new QTableWidget(widget_20);
         if (TestTab->columnCount() < 4)
             TestTab->setColumnCount(4);
@@ -1872,6 +1880,15 @@ public:
 
         verticalLayout_22->addWidget(OKVolImp);
 
+        label_40 = new QLabel(widget_20);
+        label_40->setObjectName(QStringLiteral("label_40"));
+        label_40->setMaximumSize(QSize(16777215, 100));
+        label_40->setFont(font5);
+        label_40->setScaledContents(false);
+        label_40->setWordWrap(true);
+
+        verticalLayout_22->addWidget(label_40);
+
 
         horizontalLayout_10->addWidget(widget_20);
 
@@ -1909,7 +1926,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        Graphes->setCurrentIndex(8);
+        Graphes->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -2041,6 +2058,7 @@ public:
         OKPO->setText(QApplication::translate("MainWindow", "Afficher", 0));
         label_37->setText(QApplication::translate("MainWindow", "*Les pentes de ces courbes en le Spot ent\303\251e par l'utilisateur correspond au Delta.", 0));
         Graphes->setTabText(Graphes->indexOf(tab_6), QApplication::translate("MainWindow", "Graphes Pay-Off", 0));
+        label_41->setText(QApplication::translate("MainWindow", "Entrer les couples (Strike, Prix du march\303\251) dans l'ordre croissant des Strikes :", 0));
         QTableWidgetItem *___qtablewidgetitem = TestTab->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Strike", 0));
         QTableWidgetItem *___qtablewidgetitem1 = TestTab->horizontalHeaderItem(1);
@@ -2145,6 +2163,7 @@ public:
         TestTab->setSortingEnabled(__sortingEnabled);
 
         OKVolImp->setText(QApplication::translate("MainWindow", "Calculer la volatilit\303\251 implicite", 0));
+        label_40->setText(QApplication::translate("MainWindow", "Les valeurs par d\303\251faut sont coh\303\251rentes avec les hypoth\303\250ses inscrites par d\303\251faut \303\240 l'ouverture du programme.", 0));
         Graphes->setTabText(Graphes->indexOf(tab_9), QApplication::translate("MainWindow", "Volatilit\303\251 implicite", 0));
         textEdit->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"

@@ -15,8 +15,9 @@ QVector <double> MC::PrixA(unsigned long NumberOfPaths, Option& Option)
     unsigned long i(0);
     while (i<NumberOfPaths-1)
  {
-     i+=1;
-     runningSum+=0.5*(Option.getPayOff(Option)[0]+Option.getPayOff(Option)[1]);
+     QVector <double> A=Option.getPayOff(Option);
+        i+=1;
+     runningSum+=0.5*(A[0]+A[1]);
      PrixAV[i]=(runningSum/i)*exp(-Option.getExpiry()*Option.getr());
  }
     return PrixAV;
@@ -35,7 +36,8 @@ double MC::PrixT(int secondes, Option& Option)
     {
         tend=time(NULL);                // Date de fin
         k+=1;
-        runningSum+=0.5*(Option.getPayOff(Option)[0]+Option.getPayOff(Option)[1]);
+        QVector <double> A=Option.getPayOff(Option);
+        runningSum+=0.5*(A[0]+A[1]);
         texec=difftime(tend,tbegin); // tend-tbegin (resultat en secondes)
     }
     double resultat=(runningSum/k)*exp(-Option.getExpiry()*Option.getr());

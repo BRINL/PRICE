@@ -78,8 +78,9 @@ QVector <double> OptionB::operator()(double Spot) const
 {
     QVector <double> SpotTB(2);
     Random loi;
-    SpotTB[0]=m_movedSpot*exp(Rootvariance*loi.GNormale());
-    SpotTB[1]=m_movedSpot*exp(-Rootvariance*loi.GNormale());
+    double Norm=loi.GNormale();
+    SpotTB[0]=m_movedSpot*exp(Rootvariance*Norm);
+    SpotTB[1]=m_movedSpot*exp(-Rootvariance*Norm);
     return SpotTB;
 }
 
@@ -160,8 +161,9 @@ QVector <double> OptionL::operator()(double Spot) const
     {
         T=T*(loi.GLogNormale(m_m, m_vega2));
     }
-    SpotTL[0]=m_movedSpot*exp(Rootvariance*loi.GNormale())*T;
-    SpotTL[1]=m_movedSpot*exp(-Rootvariance*loi.GNormale())*T;
+    double Norm=loi.GNormale();
+    SpotTL[0]=m_movedSpot*exp(Rootvariance*Norm)*T;
+    SpotTL[1]=m_movedSpot*exp(-Rootvariance*Norm)*T;
     }
 
     return SpotTL;
