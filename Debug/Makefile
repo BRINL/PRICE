@@ -155,7 +155,6 @@ DIST          = ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/spec_post.prf \
-		../PRICER/.qmake.stash \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -312,7 +311,6 @@ Makefile: ../PRICER/Pricer++.pro ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-cl
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -429,7 +427,6 @@ Makefile: ../PRICER/Pricer++.pro ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-cl
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/qt_config.prf:
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/default_pre.prf:
 ../../../Qt5.2.1/5.2.1/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -504,8 +501,8 @@ compiler_rcc_make_all: qrc_RESSOURCE.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_RESSOURCE.cpp
 qrc_RESSOURCE.cpp: ../PRICER/RESSOURCE.qrc \
-		../PRICER/Brownien.png \
-		../PRICER/Levy.png
+		../PRICER/Levy.png \
+		../PRICER/Brownien.png
 	/Users/loicbrin/Qt5.2.1/5.2.1/clang_64/bin/rcc -name RESSOURCE ../PRICER/RESSOURCE.qrc -o qrc_RESSOURCE.cpp
 
 compiler_moc_header_make_all: moc_Mainwindow.cpp moc_qcustomplot.cpp
@@ -1073,7 +1070,6 @@ Mainwindow.o: ../PRICER/Mainwindow.cpp ../PRICER/Mainwindow.h \
 		../../../Qt5.2.1/5.2.1/clang_64/lib/QtPrintSupport.framework/Versions/5/Headers/qtprintsupportversion.h \
 		../PRICER/PayOff.h \
 		ui_mainwindow.h \
-		../../qcustomplot.h \
 		../PRICER/Option.h \
 		../PRICER/Genealeatoire.h \
 		../PRICER/MC.h \

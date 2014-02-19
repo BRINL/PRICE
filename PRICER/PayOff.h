@@ -29,4 +29,24 @@ class PayOffPut : public PayOff
     private :
     double m_Strike;
   };
+/*
+ * Possibilité d'étendre à d'autres Pay-Offs (cf Option.cpp)
+class PayOffCallA : public PayOff
+{
+    public :
+        PayOffCallA(double Strike, double Expiry, double Spot, double Vol, double r, double lambda, double m, double vega2);
+        virtual double operator()(double Spot) const;
+    private :
+    double m_Strike;
+    double m_Expiry;
+    double m_Spot;
+    double m_Vol;
+    double m_r;
+    double m_lambda;
+    double m_m;
+    double m_vega2;
+  };
+*/
+
+
 #endif // PAYOFF_H

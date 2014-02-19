@@ -47,7 +47,7 @@ QVector<double> StatGatherer :: GPO()
     for (int i=0;i<m_taille;++i)
     {
         axe+=pas;
-        GPO[i]=maMC.PrixAc(10000,m_MonOption,axe, m_MonOption.getExpiry(), m_MonOption.getr(), m_MonOption.getSigma());
+        GPO[i]=maMC.PrixAc(10000,m_MonOption, axe, m_MonOption.getExpiry(), m_MonOption.getr(), m_MonOption.getSigma());
     }
     return GPO;
 }

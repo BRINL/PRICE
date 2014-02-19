@@ -40,9 +40,11 @@ connect(ui->PB, SIGNAL(clicked()), this, SLOT(AddSimuB()));
 connect(ui->PL, SIGNAL(clicked()), this, SLOT(AddSimuL()));
 connect(ui->OKVolImp, SIGNAL(clicked()), this, SLOT(Volimp()));
 
+
 }
 
 ////////////////////////////////////// RECUPERATION DES DONNES DE L'UTILISATEUR ////////////////////////////
+
 
 double  MainWindow::edSpot()
 {
@@ -116,6 +118,9 @@ int  MainWindow::edt()
     return montexte.toInt();;
 }
 
+
+
+
 void  MainWindow::update2()
 {
     Spot=edSpot();
@@ -139,10 +144,11 @@ void  MainWindow::update2()
     {
     PO = new PayOffCall(Strike);
     }
-    else
+    else if (TypeOption==0)
     {
     PO = new PayOffPut(Strike);
-    };
+    }
+;
 
     ui->Plot_PayOffB->clearGraphs();
     ui->Plot_PayOffL->clearGraphs();
@@ -163,11 +169,7 @@ void  MainWindow::update2()
     SetupPlotSimuB();
     SetupPlotSimuL();
     SetupPrices();
-/*
-QString a=ui->TestTab->itemAt(1,1)->text();
-double c=a.toDouble();
-cout << c << endl;
-*/
+
 }
 
 
@@ -280,9 +282,9 @@ double precPO=25;
 PayOff* PO;
 if (TypeOption==1)
 {
-               PO = new PayOffCall(Strike);
+PO = new PayOffCall(Strike);
 }
-else
+else if (TypeOption==0)
 {
 PO = new PayOffPut(Strike);
 };
@@ -345,10 +347,11 @@ if (TypeOption==1)
 {
 PO = new PayOffCall(Strike);
 }
-else
+else if (TypeOption==0)
 {
 PO = new PayOffPut(Strike);
-};
+}
+;
 
 
     // Objet de Levy
@@ -403,15 +406,16 @@ void MainWindow::SetupPrices()
 {
    // INITIALISATION DES VALEURS //
 
-PayOff* PO;
-if (TypeOption==1)
-{
-PO = new PayOffCall(Strike);
-}
-else
-{
-PO = new PayOffPut(Strike);
-};
+    PayOff* PO;
+    if (TypeOption==1)
+    {
+    PO = new PayOffCall(Strike);
+    }
+    else if (TypeOption==0)
+    {
+    PO = new PayOffPut(Strike);
+    }
+;
 
 if (StopMCType==1)
     NumberOfPaths=1000000;
@@ -447,7 +451,7 @@ ui->lm->setNum(m);
 ui->tr->setNum(r);
 ui->lvega2->setNum(vega2);
 ui->lOptionType->setText("Européenne");
-if (TypeOption==1)
+if (TypeOption==1 | TypeOption==3)
 ui->lCoP->setText("Call");
 else ui->lCoP->setText("Put");
 
@@ -522,7 +526,7 @@ for (unsigned long i(0);i<NumberOfPaths-1;++i)
 {
     VarEmpBS+=(PrixBV[i]-PrixB)*(PrixBV[i]-PrixB);
 }
-double VarEmpB(VarEmpBS/(NumberOfPaths-1));
+double VarEmpB(VarEmpBS/((NumberOfPaths-1)*(NumberOfPaths-1)));
 ui->VarEmpB->setNum(sqrt(VarEmpB));
 
 
@@ -531,10 +535,8 @@ for (unsigned long i(0);i<NumberOfPaths-1;++i)
 {
     VarEmpLS+=(PrixLV[i]-PrixL)*(PrixLV[i]-PrixL);
 }
-double VarEmpL(VarEmpLS/(NumberOfPaths-1));
+double VarEmpL(VarEmpLS/((NumberOfPaths-1)*(NumberOfPaths-1)));
 ui->VarEmpL->setNum(sqrt(VarEmpL));
-
-
 }
 
 void MainWindow :: Greeksc()
@@ -545,7 +547,7 @@ void MainWindow :: Greeksc()
     {
     PO = new PayOffCall(Strike);
     }
-    else
+    else if (TypeOption==0)
     {
     PO = new PayOffPut(Strike);
     };
@@ -635,7 +637,7 @@ void MainWindow::VarP()
     {
     PO = new PayOffCall(Strike);
     }
-    else
+    else if (TypeOption==0)
     {
     PO = new PayOffPut(Strike);
     };
@@ -762,7 +764,7 @@ if (TypeOption==1)
 {
 PO = new PayOffCall(StrikeI[i]);
 }
-else
+else if (TypeOption==0)
 {
 PO = new PayOffPut(StrikeI[i]);
 };
