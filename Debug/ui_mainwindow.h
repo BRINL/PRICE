@@ -84,7 +84,7 @@ public:
     QLineEdit *esecondes;
     QWidget *widget_5;
     QVBoxLayout *verticalLayout_13;
-    QLabel *label_58;
+    QLabel *label_42;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_14;
     QRadioButton *eCal;
@@ -532,10 +532,10 @@ public:
         verticalLayout_13->setSpacing(6);
         verticalLayout_13->setContentsMargins(11, 11, 11, 11);
         verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
-        label_58 = new QLabel(widget_5);
-        label_58->setObjectName(QStringLiteral("label_58"));
+        label_42 = new QLabel(widget_5);
+        label_42->setObjectName(QStringLiteral("label_42"));
 
-        verticalLayout_13->addWidget(label_58);
+        verticalLayout_13->addWidget(label_42);
 
 
         gridLayout_16->addWidget(widget_5, 0, 0, 1, 1);
@@ -1965,7 +1965,7 @@ public:
         et->setText(QApplication::translate("MainWindow", "Temps (s)", 0));
         eite->setText(QApplication::translate("MainWindow", "Nb it\303\251.", 0));
         esecondes->setText(QApplication::translate("MainWindow", "3", 0));
-        label_58->setText(QApplication::translate("MainWindow", "Europ\303\251enne", 0));
+        label_42->setText(QApplication::translate("MainWindow", "Europ\303\251enne", 0));
         eCal->setText(QApplication::translate("MainWindow", "Call", 0));
         ePut->setText(QApplication::translate("MainWindow", "Put", 0));
         label_52->setText(QApplication::translate("MainWindow", "Types d'options :", 0));
